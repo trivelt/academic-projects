@@ -22,6 +22,12 @@ class Node:
 	def __str__(self):
 		return "Node(" + str(self.data) + ")"
 
+	def __repr__(self):
+		return str(self)
+
+	def __lt__(self, other):
+		return self.data < other.data
+
 
 import unittest
 class TestNode(unittest.TestCase):
