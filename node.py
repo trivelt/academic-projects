@@ -11,7 +11,10 @@ class Node:
 		"""Funkcja dodaje nowy wezel do listy sasiadow"""
 		if not isinstance(other, Node):
 			raise Exception("Zly typ argumentu")
+		if other in self.neighbours:
+			raise Exception("Duplikat")
 		self.neighbours.append(other)
+		self.neighbours.sort()
 
 	def get_neighbour(self, i):
 		"""Funkcja zwraca i-tego sasiada z listy sasiedztwa"""
@@ -45,10 +48,13 @@ class TestNode(unittest.TestCase):
 	def test_add_get_neighbour(self):
 		neighbour = Node(11)
 		secondNeighbour = Node(9)
+		thirdNeighbour = Node(5)
 		self.wezel.add_neighbour(neighbour)
 		self.wezel.add_neighbour(secondNeighbour)
+		self.wezel.add_neighbour(thirdNeighbour)
+		print self.wezel.neighbours
 		gN = self.wezel.get_neighbour(0)
-		self.assertEqual(gN.data, 11)	
+		self.assertEqual(gN.data, 5)	
 		
 	def test_str(self):
 		self.assertEqual(self.wezel.__str__(), "Node(6)")
