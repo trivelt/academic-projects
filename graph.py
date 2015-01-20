@@ -38,13 +38,13 @@ class Graph:
 		return text
 
 
-	def dfs(v):
+	def dfs(self, v):
 		""" Funkcja przeglada graf algorytmem DFS
 			zaczynajac od wierzcholka o indeksie v """
 		pass
 
 
-	def bfs(v):
+	def bfs(self, v):
 		""" Funkcja przeglada graf algorytmem BFS
 			zaczynajac od wierzcholka o indeksie v """
 		pass
