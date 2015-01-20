@@ -46,8 +46,19 @@ class Graph:
 	def dfs(self, v):
 		""" Funkcja przeglada graf algorytmem DFS
 			zaczynajac od wierzcholka o indeksie v """
-		pass
-
+		vNode = self.get_node(v)
+		ret = list()
+		stack = [vNode]
+		visited = [False for i in range(self.numberOfNodes)]
+		while len(stack) != 0:
+			w = stack.pop()
+			if visited[w.data] is False:
+				visited[w.data] = True
+				for neighbour in w.neighbours:
+					if visited[neighbour.data] is False:
+						stack.append(neighbour)
+				ret.append(w.data)
+		return ret
 
 	def bfs(self, v):
 		""" Funkcja przeglada graf algorytmem BFS
@@ -101,6 +112,26 @@ class TestGraph(unittest.TestCase):
 		self.assertEqual(self.graf.get_node(1).neighbours, [n2, n3])
 		self.graf.clear()
 		self.assertEqual(self.graf.get_node(1).neighbours, [])
+
+	def test_dfs(self):
+		self.graf.add_edge(0,1)
+		self.graf.add_edge(0,2)
+		self.graf.add_edge(0,3)
+		self.graf.add_edge(1,3)
+		self.graf.add_edge(2,3)
+		self.graf.add_edge(2,4)
+		self.graf.add_edge(3,5)
+		self.graf.add_edge(4,6)
+		self.assertEqual(self.graf.dfs(0), [0,3,5,2,4,6,1])
+		self.assertEqual(self.graf.dfs(5), [5,3,2,4,6,0,1])
+		self.graf.clear()
+		self.graf.add_edge(0,1)
+		self.graf.add_edge(1,3)
+		self.graf.add_edge(2,1)
+		self.graf.add_edge(3,4)
+		self.assertEqual(self.graf.dfs(0), [0,1,3,4,2])
+		self.assertEqual(self.graf.dfs(2), [2,1,3,4,0])
+		self.assertEqual(self.graf.dfs(3), [3,4,1,2,0])
 
 	def tearDown(self): pass
 
