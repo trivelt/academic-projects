@@ -2,6 +2,7 @@
 
 import unittest
 from node import Node
+from Queue import Queue
 
 class Graph:
     """Klasa reprezentuje graf w postaci listy sasiedztwa
@@ -64,7 +65,20 @@ class Graph:
     def bfs(self, v):
         """ Funkcja przeglada graf algorytmem BFS
             zaczynajac od wierzcholka o indeksie v """
-        pass
+        ret = list()
+        vNode = self.get_node(v)
+        queue = Queue()
+        visited = [False for i in range(self.numberOfNodes)]
+        queue.put(vNode)
+        visited[v] = True
+        while not queue.empty():
+            w = queue.get()
+            ret.append(w.data)
+            for neighbour in w.neighbours:
+                if visited[neighbour.data] == False:
+                    visited[neighbour.data] = True
+                    queue.put(neighbour)
+        return ret
 
 
 class TestGraph(unittest.TestCase):
@@ -132,6 +146,27 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graf.dfs(0), [0,1,3,4,2])
         self.assertEqual(self.graf.dfs(2), [2,1,3,4,0])
         self.assertEqual(self.graf.dfs(3), [3,4,1,2,0])
+
+    def test_bfs(self):
+        self.graf.add_edge(0,1)
+        self.graf.add_edge(1,3)
+        self.graf.add_edge(2,1)
+        self.graf.add_edge(3,4)
+        self.assertEqual(self.graf.bfs(0), [0,1,2,3,4])
+        self.graf.clear()
+        self.graf.add_edge(0,1)
+        self.graf.add_edge(0,3)
+        self.graf.add_edge(0,4)
+        self.graf.add_edge(0,6)
+        self.graf.add_edge(1,2)
+        self.graf.add_edge(1,5)
+        self.graf.add_edge(2,3)
+        self.graf.add_edge(2,4)
+        self.graf.add_edge(2,5)
+        self.graf.add_edge(2,6)
+        self.graf.add_edge(3,5)
+        self.graf.add_edge(4,6)
+        self.assertEqual(self.graf.bfs(5), [5, 1, 2, 3, 0, 4, 6])
 
     def tearDown(self): pass
 
