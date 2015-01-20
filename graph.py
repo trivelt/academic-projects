@@ -24,6 +24,7 @@ class Graph:
 		firstNode = self.get_node(i)
 		secondNode = self.get_node(j)
 		firstNode.add_neighbour(secondNode)
+		secondNode.add_neighbour(firstNode)
 
 	def __str__(self):
 		""" Funkcja wyswietla graf jako liste sasiedztwa """
