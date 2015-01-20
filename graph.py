@@ -16,6 +16,14 @@ class Graph:
 			raise Exception("Zly indeks")
 		return self.nodes[i]
 
+	def add_edge(self, i, j):
+		"""" Funkcja dodaje krawedz od wezla o indeksie i
+			do wezla o indeksie j """
+		if i < 0 or j < 0 or i >= self.numberOfNodes or j >= self.numberOfNodes:
+			raise Exception("Zly indeks")
+		firstNode = self.get_node(i)
+		secondNode = self.get_node(j)
+		firstNode.add_neighbour(secondNode)
 
 	def __str__(self):
 		""" Funkcja wyswietla graf jako liste sasiedztwa """
@@ -46,7 +54,7 @@ import unittest
 class TestGraph(unittest.TestCase):
 
 	def setUp(self):
-			self.graf = Graph(7)
+		self.graf = Graph(7)
 
 	def test_init(self):
 		self.assertEqual(self.graf.numberOfNodes, 7)
@@ -55,6 +63,14 @@ class TestGraph(unittest.TestCase):
 		self.assertEqual(self.graf.get_node(4).data, 4)
 		self.assertRaises(Exception, self.graf.get_node, 8)
 		self.assertRaises(Exception, self.graf.get_node, -1)
+
+	def test_add_edge(self):
+		self.graf.add_edge(0,4)
+		self.graf.add_edge(0,1)
+		neighbour = self.graf.get_node(0).neighbours[1]
+		self.assertTrue(self.graf.get_node(1) in self.graf.get_node(0).neighbours)
+		self.assertEqual(neighbour.data, 4)
+		self.assertRaises(Exception, self.graf.add_edge, 1, 8)
 
 	def test_str(self):
 		g = Graph(3)
