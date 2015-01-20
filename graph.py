@@ -38,6 +38,10 @@ class Graph:
 			text += "\n"
 		return text
 
+	def clear(self):
+		""" Funkcja usuwa wszystkie krawedzie grafu """
+		for node in self.nodes:
+			del node.neighbours[:]
 
 	def dfs(self, v):
 		""" Funkcja przeglada graf algorytmem DFS
@@ -83,6 +87,20 @@ class TestGraph(unittest.TestCase):
 		o.add_neighbour(m)
 		text = "\nLista sasiedztwa grafu:\n0: 1, 2\n1: \n2: 0\n"
 		self.assertEqual(g.__str__(), text)
+		g.clear()
+		g.add_edge(0,1)
+		g.add_edge(2,1)
+		text = "\nLista sasiedztwa grafu:\n0: 1\n1: 0, 2\n2: 1\n"
+		self.assertEqual(g.__str__(), text)
+
+	def test_clear(self):
+		self.graf.add_edge(1,2)
+		self.graf.add_edge(1,3)
+		n2 = self.graf.get_node(2)
+		n3 = self.graf.get_node(3)
+		self.assertEqual(self.graf.get_node(1).neighbours, [n2, n3])
+		self.graf.clear()
+		self.assertEqual(self.graf.get_node(1).neighbours, [])
 
 	def tearDown(self): pass
 
