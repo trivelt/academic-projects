@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+import unittest
+
 class Node:
     """Klasa reprezentuje wierzcholek (wezel) grafu"""
 
@@ -14,7 +16,7 @@ class Node:
         if other in self.neighbours:
             raise Exception("Duplikat")
         self.neighbours.append(other)
-        self.neighbours.sort()
+        self.neighbours.sort()  # po co sortowac?
 
     def get_neighbour(self, i):
         """Funkcja zwraca i-tego sasiada z listy sasiedztwa"""
@@ -28,11 +30,10 @@ class Node:
     def __repr__(self):
         return str(self)
 
-    def __lt__(self, other):
-        return self.data < other.data
+    def __cmp__(self, other):
+        return cmp(self.data, other.data)
 
 
-import unittest
 class TestNode(unittest.TestCase):
 
     def setUp(self):
@@ -52,7 +53,7 @@ class TestNode(unittest.TestCase):
         self.wezel.add_neighbour(neighbour)
         self.wezel.add_neighbour(secondNeighbour)
         self.wezel.add_neighbour(thirdNeighbour)
-        print self.wezel.neighbours
+        #print self.wezel.neighbours
         gN = self.wezel.get_neighbour(0)
         self.assertEqual(gN.data, 5)    
         

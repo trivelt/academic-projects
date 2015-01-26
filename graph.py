@@ -43,7 +43,8 @@ class Graph:
     def clear(self):
         """ Funkcja usuwa wszystkie krawedzie grafu """
         for node in self.nodes:
-            del node.neighbours[:]
+            #del node.neighbours[:]
+            node.neighbours = []
 
     def dfs(self, v):
         """ Funkcja przeglada graf algorytmem DFS
