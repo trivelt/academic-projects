@@ -63,6 +63,18 @@ class Graph:
                 ret.append(w.data)
         return ret
 
+    def dfs_rec(self, v, path=[]):
+        """ Funkcja przeglada graf rekurencyjnym algorytmem DFS
+            zaczynajac od wierzcholka o indeksie v """
+        path = path + [v]
+        vNode = self.get_node(v)
+        for neighbour in vNode.neighbours:
+            if neighbour.data not in path:
+                path = self.dfs_rec(neighbour.data, path)
+        return path
+
+
+
     def bfs(self, v):
         """ Funkcja przeglada graf algorytmem BFS
             zaczynajac od wierzcholka o indeksie v """
@@ -147,6 +159,17 @@ class TestGraph(unittest.TestCase):
         self.assertEqual(self.graf.dfs(0), [0,1,2,3,4])
         self.assertEqual(self.graf.dfs(2), [2,1,3,4,0])
         self.assertEqual(self.graf.dfs(3), [3,4,1,2,0])
+
+    def test_dfs_rec(self):
+        self.graf.add_edge(0,1)
+        self.graf.add_edge(0,2)
+        self.graf.add_edge(0,3)
+        self.graf.add_edge(1,3)
+        self.graf.add_edge(2,3)
+        self.graf.add_edge(2,4)
+        self.graf.add_edge(3,5)
+        self.graf.add_edge(4,6)
+        self.assertEqual(self.graf.dfs_rec(0), [0,1,3,2,4,6,5])
 
     def test_bfs(self):
         self.graf.add_edge(0,1)
