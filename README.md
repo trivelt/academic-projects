@@ -1,11 +1,10 @@
 # pythonProjekt
 
-Do zrobienia:
+Ostatnie zmiany: 
 
-1. Zwykle potrzebujemy wersji rekurencyjnej DSF, ktora daje
-inna kolejnosc odwiedzanych wierzcholkow niz wersja iteracyjna.
+1. Dodano rowniez wersje rekurencyjna algorytmu DFS ✓
 
-2. Po wybraniu z menu BFS lub DFS powinno sie cos wyswietlic,
-chociaz lista wierzcholkow w kolejnosci odwiedzania. ✓
+2. Po wybraniu z menu BFS lub DFS wyswietla sie lista wierzcholkow
+w kolejnosci ich odwiedzania ✓
 
-3. Nie robi sie sortowania na liscie sasiedztwa (kosztowne). ✓
+3. Usunieto sortowanie wierzcholkow na listach sasiedztwa ✓
