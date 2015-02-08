@@ -41,11 +41,11 @@ while exit is not True:
     elif choice == 2:
         startNode = int(raw_input("Podaj indeks wierzcholka, od ktorego "
             "nalezy zaczac przegladanie grafu:"))
-        graf.dfs(startNode)
+        print graf.dfs(startNode)
     elif choice == 3:
         startNode = int(raw_input("Podaj indeks wierzcholka, od ktorego "
             "nalezy zaczac przegladanie grafu:"))    
-        graf.bfs(startNode)    
+        print graf.bfs(startNode)
     elif choice == 4:
         exit = True
     else:
