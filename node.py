@@ -16,7 +16,6 @@ class Node:
         if other in self.neighbours:
             raise Exception("Duplikat")
         self.neighbours.append(other)
-        self.neighbours.sort()  # po co sortowac?
 
     def get_neighbour(self, i):
         """Funkcja zwraca i-tego sasiada z listy sasiedztwa"""
@@ -55,7 +54,7 @@ class TestNode(unittest.TestCase):
         self.wezel.add_neighbour(thirdNeighbour)
         #print self.wezel.neighbours
         gN = self.wezel.get_neighbour(0)
-        self.assertEqual(gN.data, 5)    
+        self.assertEqual(gN.data, 11)
         
     def test_str(self):
         self.assertEqual(self.wezel.__str__(), "Node(6)")

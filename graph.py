@@ -100,7 +100,7 @@ class TestGraph(unittest.TestCase):
         self.graf.add_edge(0,1)
         neighbour = self.graf.get_node(0).neighbours[1]
         self.assertTrue(self.graf.get_node(1) in self.graf.get_node(0).neighbours)
-        self.assertEqual(neighbour.data, 4)
+        self.assertEqual(neighbour.data, 1)
         self.assertRaises(Exception, self.graf.add_edge, 1, 8)
 
     def test_str(self):
@@ -144,7 +144,7 @@ class TestGraph(unittest.TestCase):
         self.graf.add_edge(1,3)
         self.graf.add_edge(2,1)
         self.graf.add_edge(3,4)
-        self.assertEqual(self.graf.dfs(0), [0,1,3,4,2])
+        self.assertEqual(self.graf.dfs(0), [0,1,2,3,4])
         self.assertEqual(self.graf.dfs(2), [2,1,3,4,0])
         self.assertEqual(self.graf.dfs(3), [3,4,1,2,0])
 
@@ -153,7 +153,7 @@ class TestGraph(unittest.TestCase):
         self.graf.add_edge(1,3)
         self.graf.add_edge(2,1)
         self.graf.add_edge(3,4)
-        self.assertEqual(self.graf.bfs(0), [0,1,2,3,4])
+        self.assertEqual(self.graf.bfs(0), [0,1,3,2,4])
         self.graf.clear()
         self.graf.add_edge(0,1)
         self.graf.add_edge(0,3)
