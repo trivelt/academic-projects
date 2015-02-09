@@ -53,7 +53,7 @@ class Graph:
         ret = list()
         stack = [vNode]
         visited = [False for i in range(self.numberOfNodes)]
-        while len(stack) != 0:
+        while stack:
             w = stack.pop()
             if visited[w.data] is False:
                 visited[w.data] = True
@@ -88,7 +88,7 @@ class Graph:
             w = queue.get()
             ret.append(w.data)
             for neighbour in w.neighbours:
-                if visited[neighbour.data] == False:
+                if visited[neighbour.data] is False:
                     visited[neighbour.data] = True
                     queue.put(neighbour)
         return ret

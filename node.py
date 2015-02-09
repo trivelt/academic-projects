@@ -57,7 +57,7 @@ class TestNode(unittest.TestCase):
         self.assertEqual(gN.data, 11)
         
     def test_str(self):
-        self.assertEqual(self.wezel.__str__(), "Node(6)")
+        self.assertEqual(str(self.wezel), "Node(6)")
 
     def tearDown(self): pass
 
