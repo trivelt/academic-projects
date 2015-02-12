@@ -7,9 +7,9 @@ from graph import Graph
 if len(sys.argv) > 1:
     flag = sys.argv[1]
     if flag == "--help" or flag == "-h":
-        print "\nPomoc\n"
+        print "\nPomoc\nSzczegolowy opis programu - zobacz w plikach dokumentacji"
     elif flag == "--version" or flag == "-v":
-        print "v. 0.9"
+        print "v. 1.0"
     else:
         print "Bledny argument"
     sys.exit()
