@@ -194,7 +194,7 @@ namespace uj {
     template<typename T> list<T>::~list()
     {
         std::cout << "List destructor...\n";
-        //this->clear();
+        this->clear();
     }
 
     /**
@@ -283,11 +283,9 @@ namespace uj {
       */
     template<typename T> void list<T>::clear()
     {
-        std::cout << "clear()\n";
         for(iterator it=this->begin(); it != this->end(); ++it)
         {
-            std::cout << "clear() LOOP\n";
-            //this->erase(it);
+            this->erase(it);
         }
     }
 
@@ -306,7 +304,7 @@ namespace uj {
     template<typename T> typename list<T>::iterator list<T>::insert(iterator pos, const T & value)
     {
         element* newElement = new element(value);
-        std::cout << "insert(): Creating new element with value " << value << "\n";
+        //std::cout << "insert(): Creating new element with value " << value << "\n";
         if(pos == this->end())
         {
             //std::cout << "Inserting at the end\n";
@@ -317,7 +315,7 @@ namespace uj {
             //std::cout << "insert(): Position iterator points begin()\n";
             if(!this->empty())
             {
-                std::cout << "insert(): List is NOT empty\n";
+                //std::cout << "insert(): List is NOT empty\n";
                 element* oldElement = pos.previous;
                 newElement->next = oldElement;
             }
@@ -350,22 +348,18 @@ namespace uj {
     template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
     {
         element* elementToErase;
-        std::cout << "erase1() value = " << *pos << "\n";
-        std::cout << "head=" << head->value << "\n";
-        if(pos == this->end())
-        {
-            //if(size())
-        }
         if(pos == this->begin())
         {
             elementToErase = pos.previous;
-            std::cout << "erase() Iterator at the beggining\n";
-            if(size() == 1)
+            if(elementToErase->next == nullptr)
             {
+                // Usuwamy HEAD z jednoelementowej listy
                 head = nullptr;
+                tail = nullptr;
             }
             else
             {
+                // Usuwamy HEAD z wieloelementowej listy
                 head = elementToErase->next;
                 //std::cout << "head new value=" << head->value << "\n";
             }
@@ -373,12 +367,12 @@ namespace uj {
         else
         {
             elementToErase = pos.previous->next;
-            std::cout << "erase2() value = " << elementToErase->value << "\n";
-            //std::cout << "F\n";
             element* previousElement = pos.previous;
-            //std::cout << "G\n";
             previousElement->next = elementToErase->next;
-            //std::cout << "H\n";
+            if(elementToErase->next == nullptr)
+            {
+                tail = previousElement;
+            }
         }
         iterator nextElement(elementToErase);
         //delete elementToErase;

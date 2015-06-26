@@ -116,12 +116,6 @@ public:
         CPPUNIT_ASSERT_EQUAL(1024, *it);
         it++;
         CPPUNIT_ASSERT_EQUAL(true, lista.end() == it);
-
-//        CPPUNIT_ASSERT_EQUAL(size_t(2), lista.size());
-//        lista.erase(lista.begin());
-//        CPPUNIT_ASSERT_EQUAL(size_t(1), lista.size());
-//        lista.erase(lista.begin());
-//        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
     }
 };
 
@@ -150,7 +144,25 @@ public:
         CPPUNIT_ASSERT_EQUAL(false, lista.empty());
         lista.erase(lista.begin());
         CPPUNIT_ASSERT_EQUAL(true, lista.empty());
-//        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
+        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
+
+        std::cout << "\n\n";
+        it=lista.begin();
+        it = lista.insert(lista.begin(), 256);
+        it = lista.insert(it, 128);
+        it = lista.insert(it, 64);
+        it = lista.insert(it, 32);
+
+        it = lista.begin();
+        it++;
+        CPPUNIT_ASSERT_EQUAL(size_t(4), lista.size());
+        lista.erase(it);
+        CPPUNIT_ASSERT_EQUAL(size_t(3), lista.size());
+        for(it=lista.begin(); it != lista.end(); it++)
+        {
+            std::cout << "Element = " << *it << "\n";
+        }
+
     }
 };
 
