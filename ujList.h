@@ -17,7 +17,6 @@ namespace uj {
             T value;
             element* next;
 
-            element();
             element(T val);
         };
 
@@ -25,10 +24,11 @@ namespace uj {
         {
             element* previous;
             bool isHead;
+            bool isEnd;
 
             iterator();
             iterator(element* ptrToPrevious, bool isHead=false);
-            iterator & operator=(element el);
+            iterator(const iterator& other);
             iterator & operator++();
             iterator & operator++(int);
             bool operator==(iterator other);
@@ -47,8 +47,8 @@ namespace uj {
         bool empty() const; // O(1)
         size_t size() const; // O(n)
 
-        iterator begin(); // O(1)
-        iterator end(); // O(1)
+        iterator begin() const; // O(1)
+        iterator end() const; // O(1)
 
         void clear(); // O(n)
         iterator insert(iterator pos, const T & value); // O(1)
@@ -56,49 +56,128 @@ namespace uj {
     };
 
 
-    template<typename T> list<T>::element::element() : value(NULL), next(nullptr) {}
     template<typename T> list<T>::element::element(T val) : value(val), next(nullptr) {}
 
-
-    template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false) {}
+    template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false), isEnd(false) {}
 
     template<typename T> list<T>::iterator::iterator(element *ptrToPrevious, bool isHead)
     {
         this->previous = ptrToPrevious;
         this->isHead = isHead;
+        this->isEnd = false;
     }
 
-    template<typename T> typename list<T>::iterator & list<T>::iterator::operator=(list<T>::element el)
-    {
-    }
+    template<typename T> list<T>::iterator::iterator(const iterator & other) :
+        previous(other.previous),
+        isHead(other.isHead),
+        isEnd(other.isEnd) {}
 
+    /**
+      * @brief Preinkrementacja
+      * @return Referencja do iteratora
+      *
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator & list<T>::iterator::operator++()
     {
+        if(isHead)
+        {
+            isHead = false;
+        }
+        else
+        {
+            previous = previous->next;
+        }
+
+        if(previous->next == nullptr)
+           previous = nullptr;
+
+        return *this;
     }
 
+    /**
+      * @brief Postinkrementacja
+      * @return Referencja do iteratora
+      *
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator & list<T>::iterator::operator++(int)
     {
+        iterator beforeIncrementation(*this);
+        if(isHead)
+        {
+            isHead = false;
+        }
+        else
+        {
+            previous = previous->next;
+        }
+
+        if(previous->next == nullptr)
+           previous = nullptr;
+
+        return beforeIncrementation;
     }
 
+    /**
+      * @brief Operator porownania
+      * @param Iterator
+      * @return Wartosc logiczna true jesli iteratory sa sobie rowne, wpp false
+      *
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> bool list<T>::iterator::operator==(list<T>::iterator other)
     {
+        if(this->isEnd == true && other.isEnd == true)
+            return true;
+        return (this->previous==other.previous && this->isHead==other.isHead);
     }
 
     template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other)
     {
+        if(this->isEnd == true && other.isEnd == true)
+            return false;
+        return (this->previous != other.previous || this->isHead != other.isHead);
     }
 
     template<typename T> T & list<T>::iterator::operator*()
     {
+        if(isHead)
+            return previous->value;
+        else
+            return previous->next->value;
     }
 
     template<typename T> T * list<T>::iterator::operator->()
     {
+        if(isHead)
+            return &previous->value;
+        else
+            return &previous->next->value;
     }
 
 
+/**
+  * @brief Konstruktor domyslny
+  *
+  * Tworzy nowa liste.
+  *
+  * Zlozonosc czasowa: O(1)
+  */
     template<typename T> list<T>::list() : head(nullptr) {}
 
+
+    /**
+      * @brief Konstruktor
+      * @param Referencja do listy
+      *
+      * Tworzy nowa liste na podstawie podanej w argumencie.
+      *
+      * Zlozonosc czasowa: O(n)
+      */
     template<typename T> list<T>::list(const list & other)
     {
         iterator it = other.begin();
@@ -128,7 +207,8 @@ namespace uj {
       */
     template<typename T> list<T>::~list()
     {
-        this->clear();
+        std::cout << "List destructor...\n";
+        //this->clear();
     }
 
     /**
@@ -156,6 +236,7 @@ namespace uj {
       */
     template<typename T> bool list<T>::empty() const
     {
+        //std::cout << "empty(): Returned value = " << (head == nullptr) << "\n";
         return (head == nullptr);
     }
 
@@ -172,6 +253,7 @@ namespace uj {
         size_t counter = 0;
         for(iterator it=this->begin(); it != this->end(); ++it)
         {
+            std::cout << "inside size() loop\n";
             counter++;
         }
         return counter;
@@ -185,9 +267,13 @@ namespace uj {
       *
       * Zlozonosc czasowa: O(1)
       */
-    template<typename T> typename list<T>::iterator list<T>::begin()
+    template<typename T> typename list<T>::iterator list<T>::begin() const
     {
-        return iterator(head);
+        if(this->empty()){
+            std::cout << "begin() empty!\n";
+            return iterator(head, false);}
+        else { std::cout << "begin() not empty!\n";
+            return iterator(head, true);}
     }
 
     /**
@@ -199,9 +285,11 @@ namespace uj {
       *
       * Zlozonosc czasowa: O(1)
       */
-    template<typename T> typename list<T>::iterator list<T>::end()
+    template<typename T> typename list<T>::iterator list<T>::end() const
     {
-        return iterator(nullptr);
+        iterator endIt = iterator(nullptr);
+        endIt.isEnd = true;
+        return endIt;
     }
 
     /**
@@ -213,8 +301,10 @@ namespace uj {
       */
     template<typename T> void list<T>::clear()
     {
+        std::cout << "clear()\n";
         for(iterator it=this->begin(); it != this->end(); ++it)
         {
+            std::cout << "clear() LOOP\n";
             this->erase(it);
         }
     }
@@ -233,21 +323,26 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::insert(iterator pos, const T & value)
     {
-        element* newElement = element(value);
-
+        element* newElement = new element(value);
+        std::cout << "insert(): Creating new element with value " << value << "\n";
         if(pos == this->begin())
         {
+            //std::cout << "insert(): Position iterator points begin()\n";
             if(!this->empty())
             {
+                //std::cout << "insert(): List is NOT empty\n";
                 element* oldElement = pos.previous->next;
                 newElement->next = oldElement;
             }
             head = newElement;
+            //std::cout << "insert(): Head has new value\n";
             return iterator(newElement, true);
         }
         else
         {
             element* previousElement = pos.previous;
+            element* oldElement = previousElement->next;
+            newElement->next = oldElement;
             previousElement->next = newElement;
             return iterator(previousElement);
         }
@@ -266,18 +361,36 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
     {
+        //std::cout << "erase() \n";
+        std::cout << "erase() value = " << *pos << "\n";
+        //std::cout << "head=" << head->value << "\n";
         element* elementToErase = pos.previous->next;
-        if(elementToErase == head)
+        //std::cout << "Current element=" << pos.previous << "\n";
+        //std::cout << "Current head=" << head << "\n";
+        std::cout << "Size = " << size() << "\n";
+        if(pos == this->begin())
         {
-            head = elementToErase->next;
+            //std::cout << "erase() Iterator at the beggining\n";
+            if(size() == 1)
+            {
+                //std::cout << "erase() Size is only 1\n";
+                head = nullptr;
+            }
+            else
+            {
+                head = elementToErase->next;
+            }
         }
         else
         {
+            //std::cout << "F\n";
             element* previousElement = pos.previous;
+            //std::cout << "G\n";
             previousElement->next = elementToErase->next;
+            //std::cout << "H\n";
         }
         iterator nextElement(elementToErase);
-        delete elementToErase;
+        //delete elementToErase;
         return nextElement;
     }
 
