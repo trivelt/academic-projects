@@ -53,76 +53,124 @@ namespace uj {
         iterator insert(iterator pos, const T & value); // O(1)
         iterator erase(iterator pos); // O(1)
     };
-}
-
-template<typename T> uj::list<T>::element::element() : value(NULL), next(nullptr) {}
-template<typename T> uj::list<T>::element::element(T val) : value(val), next(nullptr) {}
 
 
-template<typename T> uj::list<T>::iterator::iterator()
-{
-}
-
-template<typename T> typename uj::list<T>::iterator & uj::list<T>::iterator::operator=(uj::list<T>::element el)
-{
-}
-
-template<typename T> typename uj::list<T>::iterator & uj::list<T>::iterator::operator++()
-{
-}
-
-template<typename T> typename uj::list<T>::iterator & uj::list<T>::iterator::operator++(int)
-{
-}
-
-template<typename T> bool uj::list<T>::iterator::operator==(uj::list<T>::iterator other)
-{
-}
-
-template<typename T> bool uj::list<T>::iterator::operator!=(uj::list<T>::iterator other)
-{
-}
-
-template<typename T> T & uj::list<T>::iterator::operator*()
-{
-}
-
-template<typename T> T * uj::list<T>::iterator::operator->()
-{
-}
+    template<typename T> list<T>::element::element() : value(NULL), next(nullptr) {}
+    template<typename T> list<T>::element::element(T val) : value(val), next(nullptr) {}
 
 
-template<typename T> uj::list<T>::list() : head(nullptr) {}
-
-template<typename T> uj::list<T>::list(const list & other)
-{
-    iterator it = other.begin();
-    if(other.empty())
+    template<typename T> list<T>::iterator::iterator()
     {
-        head = nullptr;
-    }
-    else
-    {
-        element headElement(*it);
-        head = &headElement;
     }
 
-    int pos = 1;
-    for(++it; it != other.end(); ++it)
+    template<typename T> typename list<T>::iterator & list<T>::iterator::operator=(list<T>::element el)
     {
-        this->insert(pos, *it);
     }
-}
 
-template<typename T> uj::list<T>::~list()
-{
-    ;
-}
+    template<typename T> typename list<T>::iterator & list<T>::iterator::operator++()
+    {
+    }
 
-template<typename T> bool uj::list<T>::empty() const
-{
-    return true;
-}
+    template<typename T> typename list<T>::iterator & list<T>::iterator::operator++(int)
+    {
+    }
 
+    template<typename T> bool list<T>::iterator::operator==(list<T>::iterator other)
+    {
+    }
+
+    template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other)
+    {
+    }
+
+    template<typename T> T & list<T>::iterator::operator*()
+    {
+    }
+
+    template<typename T> T * list<T>::iterator::operator->()
+    {
+    }
+
+
+    template<typename T> list<T>::list() : head(nullptr) {}
+
+    template<typename T> list<T>::list(const list & other)
+    {
+        iterator it = other.begin();
+        if(other.empty())
+        {
+            head = nullptr;
+        }
+        else
+        {
+            element headElement(*it);
+            head = &headElement;
+        }
+
+        iterator insertedElement = this->begin();
+        for(++it; it != other.end(); ++it)
+        {
+            insertedElement = this->insert(++insertedElement, *it);
+        }
+    }
+
+    template<typename T> list<T>::~list()
+    {
+    }
+
+    template<typename T> list<T> & list<T>::operator=(const list & other)
+    {
+    }
+
+    template<typename T> bool list<T>::empty() const
+    {
+        return true;
+    }
+
+    template<typename T> size_t list<T>::size() const
+    {
+    }
+
+    template<typename T> typename list<T>::iterator list<T>::begin()
+    {
+    }
+
+    template<typename T> typename list<T>::iterator list<T>::end()
+    {
+    }
+
+    template<typename T> void list<T>::clear()
+    {
+    }
+
+    template<typename T> typename list<T>::iterator list<T>::insert(iterator pos, const T & value)
+    {
+        element* newElement = element(value);
+
+        if(this->empty())
+        {
+            head = newElement;
+            return iterator(newElement);
+        }
+
+        element* oldElement = *pos;
+        newElement->next = oldElement;
+        if(oldElement == head)
+        {
+            head = newElement;
+        }
+        else
+        {
+            element* previousElement = pos.previous;
+            previousElement->next = newElement;
+        }
+        return iterator(newElement);
+    }
+
+    template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
+    {
+    }
+
+}
 
 #endif // UJLIST_H
