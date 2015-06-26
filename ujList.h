@@ -143,6 +143,18 @@ namespace uj {
     {
     }
 
+    /**
+      * @brief Dodawanie nowego elementu
+      * @param Iterator wskazujacy na pozycje nowego elementu
+      * @param Wartosc nowego elementu
+      * @return Iterator na dodany element
+      *
+      * Funkcja wstawia nowy element bezposrednio przed elementem
+      * wskazywanym przez podany iterator. Zwracanym obiektem jest
+      * iterator na nowo utworzony element listy.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator list<T>::insert(iterator pos, const T & value)
     {
         element* newElement = element(value);
