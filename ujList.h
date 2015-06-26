@@ -114,33 +114,93 @@ namespace uj {
         }
     }
 
+    /**
+      * @brief Destruktor
+      *
+      * Destruktor listy. Usuwa z niej wszystkie elementy.
+      *
+      * Zlozonosc czasowa: O(n)
+      */
     template<typename T> list<T>::~list()
     {
+        this->clear();
     }
 
     template<typename T> list<T> & list<T>::operator=(const list & other)
     {
     }
 
+    /**
+      * @brief Sprawdza czy lista jest pusta
+      * @return true jesli lista jest pusta, w przeciwnym wypadku - false
+      *
+      * Funkcja sprawdzajaca czy lista zawiera niezerowa liczbe elementow.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> bool list<T>::empty() const
     {
-        return true;
+        return (head == nullptr);
     }
 
+    /**
+      * @brief Rozmiar listy
+      * @return Liczba elementow w liscie
+      *
+      * Funkcja obliczajaca i zwracajaca rozmiar listy.
+      *
+      * Zlozonosc czasowa: O(n)
+      */
     template<typename T> size_t list<T>::size() const
     {
+        size_t counter = 0;
+        for(iterator it=this->begin(); it != this->end(); ++it)
+        {
+            counter++;
+        }
+        return counter;
     }
 
+    /**
+      * @brief Zwraca iterator na poczatek listy
+      * @return Iterator na pierwszy element listy
+      *
+      * Funkcja zwraca iterator wskazujacy na poczatek listy.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator list<T>::begin()
     {
+        return iterator(head);
     }
 
+    /**
+      * @brief Iterator poza lista
+      * @return Iterator na miejsce za koncem listy
+      *
+      * Funkcja zwraca iterator wskazujacy na miejsce za koncem listy,
+      * czyli wskaznik nullptr.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator list<T>::end()
     {
+        return iterator(nullptr);
     }
 
+    /**
+      * @brief Czyszczenie listy
+      *
+      * Funkcja usuwajaca z listy wszystkie elementy.
+      *
+      * Zlozonosc czasowa: O(n)
+      */
     template<typename T> void list<T>::clear()
     {
+        for(iterator it=this->begin(); it != this->end(); ++it)
+        {
+            this->erase(it);
+        }
     }
 
     /**
@@ -202,7 +262,9 @@ namespace uj {
             element* previousElement = pos.previous;
             previousElement->next = elementToErase->next;
         }
-        return iterator(elementToErase->next);
+        iterator nextElement(elementToErase->next);
+        delete elementToErase;
+        return nextElement;
     }
 
 }
