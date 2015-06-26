@@ -131,8 +131,19 @@ namespace uj {
         this->clear();
     }
 
+    /**
+      * @brief Operator przypisania
+      * @param Referencja do listy
+      * @return Referencja do utworzonej listy
+      *
+      * Tworzy nowa liste na podstawie podanej w argumencie
+      *
+      * Zlozonosc czasowa: O(n)
+      */
     template<typename T> list<T> & list<T>::operator=(const list & other)
     {
+        list<T> newList(other);
+        return &newList;
     }
 
     /**
@@ -228,7 +239,7 @@ namespace uj {
         {
             if(!this->empty())
             {
-                element* oldElement = *pos;
+                element* oldElement = pos.previous->next;
                 newElement->next = oldElement;
             }
             head = newElement;
@@ -255,7 +266,7 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
     {
-        element* elementToErase = *pos;
+        element* elementToErase = pos.previous->next;
         if(elementToErase == head)
         {
             head = elementToErase->next;
