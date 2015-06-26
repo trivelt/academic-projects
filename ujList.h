@@ -24,7 +24,6 @@ namespace uj {
         {
             element* previous;
             bool isHead;
-            bool isEnd;
 
             iterator();
             iterator(element* ptrToPrevious, bool isHead=false);
@@ -38,6 +37,7 @@ namespace uj {
         };
 
         element* head;
+        element* tail;
 
         list(); // O(1)
         list(const list & other); // O(n)
@@ -58,19 +58,17 @@ namespace uj {
 
     template<typename T> list<T>::element::element(T val) : value(val), next(nullptr) {}
 
-    template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false), isEnd(false) {}
+    template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false) {}
 
     template<typename T> list<T>::iterator::iterator(element *ptrToPrevious, bool isHead)
     {
         this->previous = ptrToPrevious;
         this->isHead = isHead;
-        this->isEnd = false;
     }
 
     template<typename T> list<T>::iterator::iterator(const iterator & other) :
         previous(other.previous),
-        isHead(other.isHead),
-        isEnd(other.isEnd) {}
+        isHead(other.isHead) {}
 
     /**
       * @brief Preinkrementacja
@@ -89,11 +87,6 @@ namespace uj {
         {
             previous = previous->next;
         }
-
-        if(previous->next == nullptr)
-           previous = nullptr;
-
-        return *this;
     }
 
     /**
@@ -114,10 +107,6 @@ namespace uj {
         {
             previous = previous->next;
         }
-
-        if(previous->next == nullptr)
-           previous = nullptr;
-
         return beforeIncrementation;
     }
 
@@ -131,15 +120,11 @@ namespace uj {
       */
     template<typename T> bool list<T>::iterator::operator==(list<T>::iterator other)
     {
-        if(this->isEnd == true && other.isEnd == true)
-            return true;
         return (this->previous==other.previous && this->isHead==other.isHead);
     }
 
     template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other)
     {
-        if(this->isEnd == true && other.isEnd == true)
-            return false;
         return (this->previous != other.previous || this->isHead != other.isHead);
     }
 
@@ -167,7 +152,7 @@ namespace uj {
   *
   * Zlozonosc czasowa: O(1)
   */
-    template<typename T> list<T>::list() : head(nullptr) {}
+    template<typename T> list<T>::list() : head(nullptr), tail(nullptr) {}
 
 
     /**
@@ -184,18 +169,19 @@ namespace uj {
         if(other.empty())
         {
             head = nullptr;
+            tail = nullptr;
+            return;
         }
-        else
-        {
-            element headElement(*it);
-            head = &headElement;
-        }
+
+        element headElement(*it);
+        head = &headElement;
 
         iterator insertedElement = this->begin();
         for(++it; it != other.end(); ++it)
         {
             insertedElement = this->insert(++insertedElement, *it);
         }
+        tail = insertedElement.previous->next;
     }
 
     /**
@@ -253,7 +239,6 @@ namespace uj {
         size_t counter = 0;
         for(iterator it=this->begin(); it != this->end(); ++it)
         {
-            std::cout << "inside size() loop\n";
             counter++;
         }
         return counter;
@@ -269,11 +254,10 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::begin() const
     {
-        if(this->empty()){
-            std::cout << "begin() empty!\n";
-            return iterator(head, false);}
-        else { std::cout << "begin() not empty!\n";
-            return iterator(head, true);}
+        if(this->empty())
+            return iterator(head, false);
+        else
+            return iterator(head, true);
     }
 
     /**
@@ -287,9 +271,7 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::end() const
     {
-        iterator endIt = iterator(nullptr);
-        endIt.isEnd = true;
-        return endIt;
+        return iterator(tail);
     }
 
     /**
@@ -325,6 +307,10 @@ namespace uj {
     {
         element* newElement = new element(value);
         std::cout << "insert(): Creating new element with value " << value << "\n";
+        if(pos == this->end())
+        {
+            tail = newElement;
+        }
         if(pos == this->begin())
         {
             //std::cout << "insert(): Position iterator points begin()\n";

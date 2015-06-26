@@ -84,6 +84,7 @@ public:
         CPPUNIT_ASSERT_EQUAL(false, it.isHead);
 
         uj::list<int>::iterator itEnd = lista.end();
+        CPPUNIT_ASSERT_EQUAL(lista.tail, itEnd.previous);
         CPPUNIT_ASSERT_EQUAL(nulptr, itEnd.previous);
 
         uj::list<int>::iterator newEl = lista.insert(it, 512);
@@ -91,14 +92,18 @@ public:
         CPPUNIT_ASSERT_EQUAL(512, *newEl);
         CPPUNIT_ASSERT_EQUAL(nulptr, newEl.previous->next);
         CPPUNIT_ASSERT_EQUAL(false, lista.empty());
+        CPPUNIT_ASSERT_EQUAL(lista.tail, newEl.previous);
 
         newEl++;
         CPPUNIT_ASSERT_EQUAL(false, newEl.isHead);
-        CPPUNIT_ASSERT_EQUAL(nulptr, newEl.previous);
+        CPPUNIT_ASSERT_EQUAL(lista.tail, newEl.previous);
         CPPUNIT_ASSERT_EQUAL(size_t(1), lista.size());
 
         uj::list<int>::iterator secondEl = lista.insert(newEl, 1024);
-        //CPPUNIT_ASSERT_EQUAL(false, secondEl.isHead);
+        CPPUNIT_ASSERT_EQUAL(false, secondEl.isHead);
+        CPPUNIT_ASSERT_EQUAL(size_t(2), lista.size());
+        CPPUNIT_ASSERT_EQUAL(false, (lista.tail == newEl.previous));
+        CPPUNIT_ASSERT_EQUAL(lista.tail, newEl.previous->next);
 
 
 //        element* head;
