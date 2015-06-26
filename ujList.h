@@ -24,9 +24,10 @@ namespace uj {
         struct iterator : std::iterator<std::random_access_iterator_tag, T*>
         {
             element* previous;
+            bool isHead;
 
             iterator();
-            iterator(element* ptr);
+            iterator(element* ptrToPrevious, bool isHead=false);
             iterator & operator=(element el);
             iterator & operator++();
             iterator & operator++(int);
@@ -59,8 +60,12 @@ namespace uj {
     template<typename T> list<T>::element::element(T val) : value(val), next(nullptr) {}
 
 
-    template<typename T> list<T>::iterator::iterator()
+    template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false) {}
+
+    template<typename T> list<T>::iterator::iterator(element *ptrToPrevious, bool isHead)
     {
+        this->previous = ptrToPrevious;
+        this->isHead = isHead;
     }
 
     template<typename T> typename list<T>::iterator & list<T>::iterator::operator=(list<T>::element el)
@@ -219,24 +224,22 @@ namespace uj {
     {
         element* newElement = element(value);
 
-        if(this->empty())
+        if(pos == this->begin())
         {
+            if(!this->empty())
+            {
+                element* oldElement = *pos;
+                newElement->next = oldElement;
+            }
             head = newElement;
-            return iterator(newElement);
-        }
-
-        element* oldElement = *pos;
-        newElement->next = oldElement;
-        if(oldElement == head)
-        {
-            head = newElement;
+            return iterator(newElement, true);
         }
         else
         {
             element* previousElement = pos.previous;
             previousElement->next = newElement;
+            return iterator(previousElement);
         }
-        return iterator(newElement);
     }
 
     /**
@@ -262,7 +265,7 @@ namespace uj {
             element* previousElement = pos.previous;
             previousElement->next = elementToErase->next;
         }
-        iterator nextElement(elementToErase->next);
+        iterator nextElement(elementToErase);
         delete elementToErase;
         return nextElement;
     }
