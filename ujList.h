@@ -30,8 +30,8 @@ namespace uj {
             iterator(const iterator& other);
             iterator & operator++();
             iterator & operator++(int);
-            bool operator==(iterator other);
-            bool operator!=(iterator other);
+            bool operator==(iterator other) const;
+            bool operator!=(iterator other) const;
             T & operator*();
             T * operator->();
         };
@@ -118,12 +118,12 @@ namespace uj {
       *
       * Zlozonosc czasowa: O(1)
       */
-    template<typename T> bool list<T>::iterator::operator==(list<T>::iterator other)
+    template<typename T> bool list<T>::iterator::operator==(list<T>::iterator other) const
     {
         return (this->previous==other.previous && this->isHead==other.isHead);
     }
 
-    template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other)
+    template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other) const
     {
         return (this->previous != other.previous || this->isHead != other.isHead);
     }
@@ -287,7 +287,7 @@ namespace uj {
         for(iterator it=this->begin(); it != this->end(); ++it)
         {
             std::cout << "clear() LOOP\n";
-            this->erase(it);
+            //this->erase(it);
         }
     }
 
@@ -309,6 +309,7 @@ namespace uj {
         std::cout << "insert(): Creating new element with value " << value << "\n";
         if(pos == this->end())
         {
+            //std::cout << "Inserting at the end\n";
             tail = newElement;
         }
         if(pos == this->begin())
@@ -316,8 +317,8 @@ namespace uj {
             //std::cout << "insert(): Position iterator points begin()\n";
             if(!this->empty())
             {
-                //std::cout << "insert(): List is NOT empty\n";
-                element* oldElement = pos.previous->next;
+                std::cout << "insert(): List is NOT empty\n";
+                element* oldElement = pos.previous;
                 newElement->next = oldElement;
             }
             head = newElement;
@@ -326,6 +327,7 @@ namespace uj {
         }
         else
         {
+            //std::cout << "Inserting element in the middle or at the end\n";
             element* previousElement = pos.previous;
             element* oldElement = previousElement->next;
             newElement->next = oldElement;
@@ -347,28 +349,31 @@ namespace uj {
       */
     template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
     {
-        //std::cout << "erase() \n";
-        std::cout << "erase() value = " << *pos << "\n";
-        //std::cout << "head=" << head->value << "\n";
-        element* elementToErase = pos.previous->next;
-        //std::cout << "Current element=" << pos.previous << "\n";
-        //std::cout << "Current head=" << head << "\n";
-        std::cout << "Size = " << size() << "\n";
+        element* elementToErase;
+        std::cout << "erase1() value = " << *pos << "\n";
+        std::cout << "head=" << head->value << "\n";
+        if(pos == this->end())
+        {
+            //if(size())
+        }
         if(pos == this->begin())
         {
-            //std::cout << "erase() Iterator at the beggining\n";
+            elementToErase = pos.previous;
+            std::cout << "erase() Iterator at the beggining\n";
             if(size() == 1)
             {
-                //std::cout << "erase() Size is only 1\n";
                 head = nullptr;
             }
             else
             {
                 head = elementToErase->next;
+                //std::cout << "head new value=" << head->value << "\n";
             }
         }
         else
         {
+            elementToErase = pos.previous->next;
+            std::cout << "erase2() value = " << elementToErase->value << "\n";
             //std::cout << "F\n";
             element* previousElement = pos.previous;
             //std::cout << "G\n";

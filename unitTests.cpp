@@ -69,7 +69,7 @@ public:
     }
 };
 
-class ListTests : public CppUnit::TestCase
+class ListBaseTest : public CppUnit::TestCase
 {
 public:
     void runTest()
@@ -105,24 +105,52 @@ public:
         CPPUNIT_ASSERT_EQUAL(false, (lista.tail == newEl.previous));
         CPPUNIT_ASSERT_EQUAL(lista.tail, newEl.previous->next);
 
+        it = lista.begin();
+        CPPUNIT_ASSERT_EQUAL(512, *it);
+        CPPUNIT_ASSERT_EQUAL(512, it.previous->value);
+        CPPUNIT_ASSERT_EQUAL(1024, it.previous->next->value);
+        CPPUNIT_ASSERT_EQUAL(true, it.isHead);
+        it++;
+        CPPUNIT_ASSERT_EQUAL(512, it.previous->value);
+        CPPUNIT_ASSERT_EQUAL(false, it.isHead);
+        CPPUNIT_ASSERT_EQUAL(1024, *it);
+        it++;
+        CPPUNIT_ASSERT_EQUAL(true, lista.end() == it);
 
-//        element* head;
+//        CPPUNIT_ASSERT_EQUAL(size_t(2), lista.size());
+//        lista.erase(lista.begin());
+//        CPPUNIT_ASSERT_EQUAL(size_t(1), lista.size());
+//        lista.erase(lista.begin());
+//        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
+    }
+};
 
-//        list(); // O(1)
-//        list(const list & other); // O(n)
-//        ~list(); // O(n)
+class ListErasingTest : public CppUnit::TestCase
+{
+public:
+    void runTest()
+    {
+        uj::list<int> lista;
+        uj::list<int>::iterator it = lista.insert(lista.begin(), 256);
+        it = lista.insert(it, 128);
+        it = lista.insert(it, 64);
+        it = lista.insert(it, 32);
 
-//        list & operator=(const list & other); // O(n)
-//        bool empty() const; // O(1)
-//        size_t size() const; // O(n)
-
-//        iterator begin() const; // O(1)
-//        iterator end() const; // O(1)
-
-//        void clear(); // O(n)
-//        iterator insert(iterator pos, const T & value); // O(1)
-//        iterator erase(iterator pos); // O(1)
-
+        for(it=lista.begin(); it != lista.end(); it++)
+        {
+            std::cout << "Element = " << *it << "\n";
+        }
+        CPPUNIT_ASSERT_EQUAL(size_t(4), lista.size());
+        lista.erase(lista.begin());
+        CPPUNIT_ASSERT_EQUAL(size_t(3), lista.size());
+        lista.erase(lista.begin());
+        CPPUNIT_ASSERT_EQUAL(size_t(2), lista.size());
+        lista.erase(lista.begin());
+        CPPUNIT_ASSERT_EQUAL(size_t(1), lista.size());
+        CPPUNIT_ASSERT_EQUAL(false, lista.empty());
+        lista.erase(lista.begin());
+        CPPUNIT_ASSERT_EQUAL(true, lista.empty());
+//        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
     }
 };
 
@@ -131,12 +159,14 @@ int main()
 {
     ElementTest* elementTest = new ElementTest();
     IteratorTest* iteratorTest = new IteratorTest();
-    ListTests* listTest = new ListTests();
+    ListBaseTest* listTest = new ListBaseTest();
+    ListErasingTest* listErasingTest = new ListErasingTest();
     CppUnit::TextUi::TestRunner runner;
 
     runner.addTest(elementTest);
     runner.addTest(iteratorTest);
     runner.addTest(listTest);
+    runner.addTest(listErasingTest);
 
     runner.run();
 
