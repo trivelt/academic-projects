@@ -167,8 +167,30 @@ namespace uj {
         return iterator(newElement);
     }
 
+    /**
+      * @brief Usuwanie elementu z listy
+      * @param Iterator wskazujacy na element do usuniecia
+      * @return Iterator na element nastepny po usunietym
+      *
+      * Funkcja pobiera jako argument iterator do elementu listy
+      * i usuwa go z niej. Zwracanym obiektem jest iterator do
+      * elementu nastepnego po usunietym.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> typename list<T>::iterator list<T>::erase(iterator pos)
     {
+        element* elementToErase = *pos;
+        if(elementToErase == head)
+        {
+            head = elementToErase->next;
+        }
+        else
+        {
+            element* previousElement = pos.previous;
+            previousElement->next = elementToErase->next;
+        }
+        return iterator(elementToErase->next);
     }
 
 }
