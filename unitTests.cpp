@@ -195,6 +195,50 @@ public:
     }
 };
 
+class DifferentTypesTest : public CppUnit::TestCase
+{
+public:
+    void runTest()
+    {
+        uj::list<double> listaDouble;
+        uj::list<double>::iterator itDouble;
+        listaDouble.insert(listaDouble.begin(), 34.1201);
+        itDouble = listaDouble.begin();
+        CPPUNIT_ASSERT_EQUAL(34.1201, *itDouble);
+
+        uj::list<float> listaFloat;
+        CPPUNIT_ASSERT_EQUAL(size_t(0), listaFloat.size());
+        listaFloat.insert(listaFloat.end(), 19.2924242);
+        CPPUNIT_ASSERT_EQUAL(size_t(1), listaFloat.size());
+        uj::list<float>::iterator itFloat = listaFloat.begin();
+        CPPUNIT_ASSERT_EQUAL(float(19.2924242), *itFloat);
+
+        uj::list<char> listaChar;
+        listaChar.insert(listaChar.begin(), 'a');
+        listaChar.insert(listaChar.end(), 'b');
+        uj::list<char>::iterator itChar = listaChar.begin();
+        itChar++;
+        CPPUNIT_ASSERT_EQUAL('b', *itChar);
+
+        uj::list<std::string> listaString;
+        listaString.insert(listaString.begin(), "Ala ma kota");
+        listaString.insert(listaString.end(), "C++ is the best");
+        listaString.insert(listaString.end(), "test-123");
+
+        uj::list<std::string>::iterator itString = listaString.begin();
+        CPPUNIT_ASSERT_EQUAL(std::string("Ala ma kota"), *itString);
+        CPPUNIT_ASSERT_EQUAL(size_t(3), listaString.size());
+        CPPUNIT_ASSERT_EQUAL(false, listaString.empty());
+        itString++;
+        CPPUNIT_ASSERT_EQUAL(std::string("C++ is the best"), *itString);
+
+        std::cout << "\n\n";
+        for(; itString != listaString.end(); itString++)
+        {
+            std::cout << "Element = " << *itString << "\n";
+        }
+    }
+};
 
 int main()
 {
@@ -203,13 +247,15 @@ int main()
     ListBaseTest* listTest = new ListBaseTest();
     ListErasingTest* listErasingTest = new ListErasingTest();
     ListClearTest* listClearTest = new ListClearTest();
-    CppUnit::TextUi::TestRunner runner;
+    DifferentTypesTest* diffTypesTest = new DifferentTypesTest();
 
+    CppUnit::TextUi::TestRunner runner;
     runner.addTest(elementTest);
     runner.addTest(iteratorTest);
     runner.addTest(listTest);
     runner.addTest(listErasingTest);
     runner.addTest(listClearTest);
+    runner.addTest(diffTypesTest);;
 
     runner.run();
 
