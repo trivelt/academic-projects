@@ -1,5 +1,3 @@
 # pythonProjekt
 
-Do zrobienia: 
-
-1. Przeslac PDF z dokumentacja.
+Implementation of graph adjacency list in Python
