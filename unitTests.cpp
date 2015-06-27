@@ -166,6 +166,35 @@ public:
     }
 };
 
+class ListClearTest : public CppUnit::TestCase
+{
+public:
+    void runTest()
+    {
+        uj::list<int> lista;
+        uj::list<int>::iterator it = lista.insert(lista.begin(), 3);
+        it++;
+        it = lista.insert(it, 9);
+        it = lista.end();
+        it = lista.insert(it, 27);
+        it++;
+        it = lista.insert(it, 81);
+
+        std::cout << "\n\n";
+        for(it=lista.begin(); it != lista.end(); it++)
+        {
+            std::cout << "Element = " << *it << "\n";
+        }
+
+        lista.clear();
+
+        CPPUNIT_ASSERT_EQUAL(true, lista.empty());
+        CPPUNIT_ASSERT_EQUAL(size_t(0), lista.size());
+        CPPUNIT_ASSERT_EQUAL(nulptr, lista.head);
+        CPPUNIT_ASSERT_EQUAL(nulptr, lista.tail);
+    }
+};
+
 
 int main()
 {
@@ -173,12 +202,14 @@ int main()
     IteratorTest* iteratorTest = new IteratorTest();
     ListBaseTest* listTest = new ListBaseTest();
     ListErasingTest* listErasingTest = new ListErasingTest();
+    ListClearTest* listClearTest = new ListClearTest();
     CppUnit::TextUi::TestRunner runner;
 
     runner.addTest(elementTest);
     runner.addTest(iteratorTest);
     runner.addTest(listTest);
     runner.addTest(listErasingTest);
+    runner.addTest(listClearTest);
 
     runner.run();
 
