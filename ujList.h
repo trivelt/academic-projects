@@ -1,3 +1,12 @@
+/** @mainpage
+  * @par Kontener lista jednokierunkowa
+  * @a Projekt na zajecia "Zaawansowane techniki programowania obiektowego w C++"
+  * @author Maciej Michalec
+  * @par Kontakt:
+  * @a maciej.michalec@uj.edu.pl
+  * @date 27.06.2015
+*/
+
 #ifndef UJLIST_H
 #define UJLIST_H
 #include <iostream>
@@ -58,14 +67,39 @@ namespace uj {
 
     template<typename T> list<T>::element::element(T val) : value(val), next(nullptr) {}
 
+    /**
+      * @brief Konstruktor bezparametrowy
+      *
+      * Tworzy nowy iterator, inicjalizujac wskaznik do elementu poprzedniego
+      * jako null oraz flage isHead jako false.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> list<T>::iterator::iterator() : previous(nullptr), isHead(false) {}
 
+    /**
+      * @brief Konstruktor
+      * @param ptrToPrevious wskaznik do poprzedniego elementu
+      * @param isHead flaga - TRUE jesli element jest glowa listy
+      *
+      * Tworzy nowa iterator.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> list<T>::iterator::iterator(element *ptrToPrevious, bool isHead)
     {
         this->previous = ptrToPrevious;
         this->isHead = isHead;
     }
 
+    /**
+      * @brief Konstruktor kopiujacy
+      * @param other referencja do iteratora
+      *
+      * Tworzy nowa iterator na podstawie innego.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> list<T>::iterator::iterator(const iterator & other) :
         previous(other.previous),
         isHead(other.isHead) {}
@@ -112,7 +146,7 @@ namespace uj {
 
     /**
       * @brief Operator porownania
-      * @param Iterator
+      * @param other Iterator
       * @return Wartosc logiczna true jesli iteratory sa sobie rowne, wpp false
       *
       *
@@ -123,11 +157,25 @@ namespace uj {
         return (this->previous==other.previous && this->isHead==other.isHead);
     }
 
+    /**
+      * @brief Operator porownania
+      * @param other Iterator
+      * @return Wartosc logiczna true jesli iteratory sa od siebie rozne, wpp false
+      *
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> bool list<T>::iterator::operator!=(list<T>::iterator other) const
     {
         return (this->previous != other.previous || this->isHead != other.isHead);
     }
 
+    /**
+      * @brief Operator wyluskania
+      * @return Referencja do wartosci wskazywanej przez iterator
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> T & list<T>::iterator::operator*()
     {
         if(isHead)
@@ -136,6 +184,12 @@ namespace uj {
             return previous->next->value;
     }
 
+    /**
+      * @brief Operator "strzalka"
+      * @return Wskaznik do wartosci wskazywanej przez iterator
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> T * list<T>::iterator::operator->()
     {
         if(isHead)
@@ -145,19 +199,19 @@ namespace uj {
     }
 
 
-/**
-  * @brief Konstruktor domyslny
-  *
-  * Tworzy nowa liste.
-  *
-  * Zlozonosc czasowa: O(1)
-  */
+    /**
+      * @brief Konstruktor bezparametrowy
+      *
+      * Tworzy nowa liste.
+      *
+      * Zlozonosc czasowa: O(1)
+      */
     template<typename T> list<T>::list() : head(nullptr), tail(nullptr) {}
 
 
     /**
       * @brief Konstruktor
-      * @param Referencja do listy
+      * @param other referencja do listy
       *
       * Tworzy nowa liste na podstawie podanej w argumencie.
       *
@@ -198,7 +252,7 @@ namespace uj {
 
     /**
       * @brief Operator przypisania
-      * @param Referencja do listy
+      * @param other referencja do listy
       * @return Referencja do utworzonej listy
       *
       * Tworzy nowa liste na podstawie podanej w argumencie
@@ -221,7 +275,6 @@ namespace uj {
       */
     template<typename T> bool list<T>::empty() const
     {
-        //std::cout << "empty(): Returned value = " << (head == nullptr) << "\n";
         return (head == nullptr);
     }
 
@@ -290,8 +343,8 @@ namespace uj {
 
     /**
       * @brief Dodawanie nowego elementu
-      * @param Iterator wskazujacy na pozycje nowego elementu
-      * @param Wartosc nowego elementu
+      * @param pos iterator wskazujacy na pozycje nowego elementu
+      * @param value wartosc nowego elementu
       * @return Iterator na dodany element
       *
       * Funkcja wstawia nowy element bezposrednio przed elementem
@@ -309,6 +362,7 @@ namespace uj {
         }
         if(pos == this->begin())
         {
+            // Dodajemy element na poczatek listy
             if(!this->empty())
             {
                 element* oldElement = pos.previous;
@@ -329,7 +383,7 @@ namespace uj {
 
     /**
       * @brief Usuwanie elementu z listy
-      * @param Iterator wskazujacy na element do usuniecia
+      * @param pos iterator wskazujacy na element do usuniecia
       * @return Iterator na element nastepny po usunietym
       *
       * Funkcja pobiera jako argument iterator do elementu listy
@@ -366,6 +420,7 @@ namespace uj {
         }
         else
         {
+            // Usuwamy element, ktory nie jest glowa listy
             elementToErase = pos.previous->next;
             element* previousElement = pos.previous;
             previousElement->next = elementToErase->next;
