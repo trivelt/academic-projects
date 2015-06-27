@@ -48,20 +48,20 @@ namespace uj {
         element* head;
         element* tail;
 
-        list(); // O(1)
-        list(const list & other); // O(n)
-        ~list(); // O(n)
+        list();
+        list(const list & other);
+        ~list();
 
-        list & operator=(const list & other); // O(n)
-        bool empty() const; // O(1)
-        size_t size() const; // O(n)
+        list & operator=(const list & other);
+        bool empty() const;
+        size_t size() const;
 
-        iterator begin() const; // O(1)
-        iterator end() const; // O(1)
+        iterator begin() const;
+        iterator end() const;
 
-        void clear(); // O(n)
-        iterator insert(iterator pos, const T & value); // O(1)
-        iterator erase(iterator pos); // O(1)
+        void clear();
+        iterator insert(iterator pos, const T & value);
+        iterator erase(iterator pos);
     };
 
 
