@@ -1,0 +1,151 @@
+#!/usr/bin/python
+# Maciej Michalec, grupa 2
+
+from time import localtime, strftime
+from datetime import datetime
+import sys
+import argparse
+import os
+from ValuesReader import read_value
+
+debug=False
+FMT = "%H:%M"
+retStr = strftime(" %H:%M:%S", localtime())
+config=os.path.expanduser("~/.worktime.conf")
+worktime = 8*60*60
+start = "AUTO"
+
+def read_config():
+    global start, worktime
+    if debug:
+        print("[DEBUG] Odczytuje config " + config)
+    try:
+        config_file = open(config)
+        for line in config_file:
+            if line.startswith("HOURS="):
+                value = read_value(line)
+                if value is not None:
+                    worktime = read_hours(value, "pliku konfiguracyjnym")
+                    if debug:
+                        print("[DEBUG] Worktime ustawiony na " + str(worktime) + " na podstawie configu")
+            elif line.startswith("START="):
+                value = read_value(line)
+                if value is not None:
+                    start = read_start(value, "pliku konfiguracyjnym")        
+                    if debug:
+                        print("[DEBUG] Start ustawiony na " + str(start) + " na podstawie configu")
+    except:
+        if debug:
+            print("[DEBUG] Nie mozna otworzyc pliku konfiguracyjnego")
+
+def read_hours(value, source):
+    hours = read_time(value)
+    if hours is None:
+        print("Ostrzezenie: bledna wartosc argumentu HOURS w " + source + ": '" + value + "'. Uzyto wartosci domyslnej.")
+        return worktime
+    else:
+        return hours
+
+def read_start(value, source):
+    if debug:
+        print("[DEBUG] Odczytuje start w " + source + ". Wartosc=" + value)
+    if value == "AUTO":
+        return value
+    time = read_time(value)
+    if time is None:
+        print("Ostrzezenie: bledna wartosc argumentu START w " + source + ": '" + value + "'. Uzyto wartosci domyslnej.")
+        return start
+    else:
+        try:
+            hours = int(time/60/60)
+            minutes = time - hours*60*60
+            return datetime.strptime(str(hours) + ":" + str(minutes), FMT)
+        except:
+            print("Ostrzezenie: bledna wartosc argumentu START w " + source + ": '" + value + "'. Uzyto wartosci domyslnej.")
+            return start
+
+def read_time(value):
+    splittedValue = value.split(":")
+    if len(splittedValue) == 1:
+        try:
+            hours = int(splittedValue[0])
+            return hours*60*60
+        except:
+            return None
+    elif len(splittedValue) == 2:
+        try:
+            hours = int(splittedValue[0])
+            minutes = int(splittedValue[1])
+            return hours*60*60 + minutes*60
+        except:
+            return None
+    return None  
+
+parser = argparse.ArgumentParser(description="Program oblicza czas pozostaly do konca pracy. Wywolanie go bez zadnych parametrow \
+wyswietla czas, opierajac sie na domyslnej wartosci trwania pracy (odczytanej z programu lub pliku konfiguracyjnego) i godzinie \
+rozpoczecia odczytanej z pliku /proc/uptime. Wartosci domyslne moga byc modyfikowane (w kolejnosci od najmniej do najbardziej \
+priorytetowej) poprzez edycje pliku konfiguracyjnego znajdujacego sie w normalnej lokalizacji, czyli ~/.worktime.conf, poprzez \
+wskazanie pliku konfiguracyjnego w innej lokalizacji (przy uzyciu opcji -c lub --config), a takze przez uzycie argumentow \
+opcjonalnych -s, --start oraz -h, --hours. Przykladowy plik konfiguracyjny zostal dolaczony do programu. Struktura konfigu jest \
+bardzo prosta: powinien on zawierac pary 'KLUCZ=WARTOSC' (rozdzielone znakiem rownosci), kazda para w osobnej linii. Dozwolone \
+klucze to 'HOURS' oraz 'START'. Wartosci tych parametrow powinny byc podawane w takim samym formacie jak przy argumentach \
+ wprowadzanych przy wywolaniu programu (opisane ponizej). Wszystkie linie uznane za niepoprawne beda ignorowane.")
+parser.add_argument('--start', '-s', help='Czas rozpoczecia pracy wyrazony w formacie hh[:mm] (godzina-minuta, wymagana jest \
+                                        tylko godzina). Zamiast wartosci liczbowej parametr moze miec ustawiona wartosc "AUTO" (ktora jest \
+                                        domyslna, jesli nie zmieniono tego poprzez plik konfiguracyjny), nakazujaca pobieranie danych o \
+                                        poczatku pracy z pliku /proc/uptime')
+parser.add_argument('--godziny', '-g', help='Liczba godzin (opcjonalnie takze minut) do przepracowania w danym dniu, format analogiczny jak \
+                                        przy argumencie -s, ale bez wartosci "AUTO"')
+parser.add_argument('--config', '-c', help='Lokalizacja pliku konfiguracyjnego jesli jest inna niz domyslna (~/.worktime.conf)')
+args = parser.parse_args()
+
+read_config() # Probuje odczyta domyslny config
+if args.config is not None:
+    if not os.path.isfile(args.config):
+        print("Blad: podano nieprawidlowy plik konfiguracyjny " + args.config)
+        sys.exit(1)
+    config=args.config
+    read_config()
+
+if args.start is not None:
+    start = read_start(args.start, "parametrze wejsciowym")
+    if debug:
+        print("[DEBUG] Start ustawiony na " + str(start) + " na podstawie parametru wejsciowego")
+
+if debug:
+    print("[DEBUG] Start=" + str(start))
+
+if start == "AUTO":
+    uptime = float(open("/proc/uptime").read().split()[0])
+else:
+    now = strftime(FMT, localtime())
+    diff = datetime.strptime(now, FMT) - start
+    uptime = diff.seconds
+
+if args.godziny is not None:
+    worktime = read_hours(args.godziny, "parametrze wejsciowym")
+    if debug:
+        print("[DEBUG] Worktime ustawiony na " + str(worktime) + " na podstawie parametru wejsciowego")
+
+retStr += " "
+
+if debug:
+    print("[DEBUG] Uptime=" + str(uptime) + ", worktime=" + str(worktime))
+
+if uptime <= worktime:
+    secondsLeft = worktime-uptime
+
+    hoursLeft = int(secondsLeft/60/60)
+    secondsLeft -= 60*60*hoursLeft
+
+    minutesLeft = int(secondsLeft/60)
+    secondsLeft -= 60*minutesLeft
+    secondsLeft = int(secondsLeft)
+
+    retStr += "timeleft " + str(hoursLeft)
+    retStr += ":" + str(minutesLeft)
+    retStr += ":" + str(secondsLeft)
+else:
+    retStr += "CZAS PRACY UPLYNAL!"
+
+print retStr

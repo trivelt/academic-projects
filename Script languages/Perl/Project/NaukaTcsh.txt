@@ -1,0 +1,9 @@
+# my tcsh learning log
+!nauka cudownego jezyka, jakim jest tcsh
+# 
+2014-10-03 45m opanowywanie podstaw nowej technologii
+2014-10-10 1.5h poznawanie pasjonujacych mozliwosci tcsh
+2014-10-21 2:15 zmagania z dziwnymi cechami tcsh
+2014-11-04 9,5 pierwszy beznadziejny projekt w tym jezyku
+2014-11-05 5:5 dopracowywanie projektu
+2014-11-29 30m proba wykonania drugiego projektu w tcsh
