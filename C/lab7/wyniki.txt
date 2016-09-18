@@ -1,0 +1,18 @@
+Dla 1 500 000 oraz 2 000 000 niezależnie od uzytego sortowania wystepuje już naruszenie ochrony pamięci. 
+
+1 000 000
+QSort z własną funkcją porównującą: 0.400000, 0.380000, 0.390000
+Własny QuickSort: 0.260000, 0.270000
+Bąbelkowe: ze względu na złożoność obliczeniową n^2 przy tej ilości danych nie wykonuje się w rozsądnym czasie (poniżej 4 minut)
+
+500 000
+Qsort: 0.180000
+Własny QuickSort: 0.120000
+Bąbelkowe: ze względu na złożoność obliczeniową n^2 przy tej ilości danych nie wykonuje się w rozsądnym czasie (poniżej 4 minut)
+
+
+100 000
+QSort: 0.030000
+Bąbelkowe: 43.120000, 38.870000
+Własny QuickSort: 0.020000, 0.030000
+
