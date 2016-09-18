@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xsd:schema attributeFormDefault="unqualified" elementFormDefault="qualified" version="1.0" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="stats">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element name="numberOfBooks" type="xsd:int" />
+        <xsd:element name="mostPopularLanguage" type="xsd:string" />
+        <xsd:element name="oldestBook" type="xsd:string" />
+        <xsd:element name="latestBook" type="xsd:string" />
+      </xsd:sequence>
+    </xsd:complexType>
+  </xsd:element>
+</xsd:schema>

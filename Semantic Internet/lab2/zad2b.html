@@ -1,0 +1,87 @@
+<html>
+<body>
+
+<span id="imie"><strong>Imie: </strong> </span><br />
+<span id="nazwisko"><strong>Nazwisko: </strong> </span><br />
+<span id="pesel"><strong>PESEL: </strong> </span><br />
+<span id="oddzial"><strong>Oddzial: </strong> </span><br />
+<span id="diagnoza"><strong>Diagnoza: </strong> </span><br />
+<span id="potwierdzona"><strong>&nbsp&nbsp&nbsp&nbspPotwierdzona: </strong> </span>
+<br />
+<input type="button" value="poprzedni"  onclick='previous()'/>
+<input type="button" value="nastepny" onclick='next()' />
+
+<script charset="UTF-8">
+if (window.XMLHttpRequest)
+{
+	xmlhttp=new XMLHttpRequest();
+}
+else
+{
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.open("GET", "zad1b.xml", false);
+xmlhttp.send();
+xmlDoc=xmlhttp.responseXML; 
+
+var x=xmlDoc.getElementsByTagName("pacjent");
+var a = x[0];
+display(a);
+var actualNumber = 0;
+
+function next()
+{
+	if(actualNumber == x.length-1)
+	{
+		actualNumber = 0;
+	}
+	else
+	{
+		actualNumber++;
+	}
+	var b = x[actualNumber];
+	display(b);
+}
+
+function previous()
+{
+	if(actualNumber == 0)
+	{
+		actualNumber = x.length-1;
+	}
+	else
+	{
+		actualNumber--;
+	}
+	var b = x[actualNumber];
+	display(b);
+}
+
+function display(y)
+{
+var imie = y.getElementsByTagName("imie")[0].firstChild.nodeValue;
+var nazwisko = y.getElementsByTagName("nazwisko")[0].firstChild.nodeValue;
+var pesel = y.getElementsByTagName("pesel")[0].firstChild.nodeValue;
+var oddzial = y.getElementsByTagName("oddzial")[0].firstChild.nodeValue;
+var diagnoza = y.getElementsByTagName("diagnoza")[0].firstChild.nodeValue;
+var potwierdzona = y.getElementsByTagName("diagnoza")[0].getAttribute('potwierdzona');
+	
+var imieNode = document.getElementById('imie');
+var nazwiskoNode = document.getElementById('nazwisko');
+var peselNode = document.getElementById('pesel');
+var oddzialNode = document.getElementById('oddzial');
+var diagnozaNode = document.getElementById('diagnoza');
+var potwierdzonaNode = document.getElementById('potwierdzona');
+
+imieNode.childNodes[1].nodeValue = imie;
+nazwiskoNode.childNodes[1].nodeValue = nazwisko;
+peselNode.childNodes[1].nodeValue = pesel;
+oddzialNode.childNodes[1].nodeValue = oddzial;
+diagnozaNode.childNodes[1].nodeValue = diagnoza;
+potwierdzonaNode.childNodes[1].nodeValue = potwierdzona;
+}
+
+</script>
+
+</body>
+</html>

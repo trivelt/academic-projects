@@ -1,0 +1,11 @@
+<!ELEMENT szpital (pacjent+)>
+<!ELEMENT pacjent (imie, nazwisko, pesel, oddzial?, diagnoza?)>
+
+<!ELEMENT imie (#PCDATA)>
+<!ELEMENT nazwisko (#PCDATA)>
+<!ELEMENT pesel (#PCDATA)>
+<!ELEMENT oddzial (#PCDATA)>
+<!ELEMENT diagnoza (#PCDATA)>
+
+<!ATTLIST pacjent Status CDATA #REQUIRED>
+<!ATTLIST diagnoza potwierdzona CDATA #REQUIRED>

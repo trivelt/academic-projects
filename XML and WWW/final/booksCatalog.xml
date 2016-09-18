@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<catalog>
+<book>
+    <title>W pustyni i w puszczy</title>
+    <author>Henryk Sienkiewicz</author>
+    <date>1911</date>
+    <language>Polish</language>
+</book>
+
+<book>
+    <title>Moby Dick</title>
+    <author>Herman Melville</author>
+    <date>1851</date>
+    <language>English</language>
+</book>
+
+<book>
+    <title>Boska Komedia</title>
+    <author>Dante Alighieri</author>
+    <date>1321</date>
+    <language>Italian</language>
+</book>
+
+<book>
+    <title>Zbrodnia i kara</title>
+    <author>Fiodor Dostojewski</author>
+    <date>1867</date>
+    <language>Russian</language>
+</book>
+
+<book>
+    <title>Kubus Puchatek</title>
+    <author>Alan Alexander Milne</author>
+    <date>1926</date>
+    <language>English</language>
+</book>
+
+</catalog>

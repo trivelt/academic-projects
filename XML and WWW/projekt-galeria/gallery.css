@@ -1,0 +1,84 @@
+html, body {
+	background: #2e3547 url(img/bg.jpg) no-repeat 50% 0%; 
+	margin: 0px; 
+	padding: 0px;
+}
+
+img {
+	border: 0px;
+	padding: 0px;
+}
+
+a:focus { 
+	outline:none;
+}
+
+#container {
+	border: 1px solid #4b5673;
+	margin: 70px auto 40px auto;
+	width: 640px;
+}
+
+#play-pause {
+    margin-top: 15px;
+    text-align: center;
+    margin-bottom: -60px;
+}
+
+#left-arrow {
+    float: left;
+    margin-top: 70px;
+}
+
+#right-arrow {
+    float: right;
+	margin-top: 70px;
+}
+
+#options { 
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#options-link {
+    text-decoration: none;
+    color: black;
+}
+
+#options-form-container {
+	border: 1px solid #4b5673;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: 640px;
+    height: 50%;
+    display: none;    
+}
+
+.gallery {
+	margin: 10px;
+}
+
+.thumbnails {
+margin: 10px 0px;
+}
+
+.thumbnails ul {
+	list-style: none;
+	overflow: hidden;
+	padding: 0px;
+	margin: 0px;
+}
+
+.thumbnails li {
+	display: inline; /*usuwa podwójne marginesy w IE*/
+	float: left;
+	margin: 0px 10px;
+	padding: 0px;
+}
+
+.thumbnails li a img{
+	display: block;
+}

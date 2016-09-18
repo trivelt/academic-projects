@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<rdf:RDF
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+xmlns:PACJENCI="http://X-hospital.com/">
+  <rdf:Seq rdf:about="http://X-hospital.com/patients">
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/88022403771">
+	<PACJENCI:imie>Jan</PACJENCI:imie>
+	<PACJENCI:nazwisko>Kowalski</PACJENCI:nazwisko>
+	<PACJENCI:pesel>88022403771</PACJENCI:pesel>
+	<PACJENCI:oddzial>Chirurgii ogolnej</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>appendicitis acuta</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/81090804299">
+	<PACJENCI:imie>Michał</PACJENCI:imie>
+	<PACJENCI:nazwisko>Okoń</PACJENCI:nazwisko>
+	<PACJENCI:pesel>81090804299</PACJENCI:pesel>
+	<PACJENCI:oddzial>Otolaryngologii</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>tonsillitis chronica</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/99111608960">
+	<PACJENCI:imie>Katarzyna</PACJENCI:imie>
+	<PACJENCI:nazwisko>Nowakowska</PACJENCI:nazwisko>
+	<PACJENCI:pesel>99111608960</PACJENCI:pesel>
+	<PACJENCI:oddzial>Dziecięcy</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>varicella</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/44101115711">
+	<PACJENCI:imie>Władysław</PACJENCI:imie>
+	<PACJENCI:nazwisko>Marzec</PACJENCI:nazwisko>
+	<PACJENCI:pesel>44101115711</PACJENCI:pesel>
+	<PACJENCI:oddzial>Kardiologiczny</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>infarctus myocardii</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/67050518448">
+	<PACJENCI:imie>Wanda</PACJENCI:imie>
+	<PACJENCI:nazwisko>Kwiatkowska</PACJENCI:nazwisko>
+	<PACJENCI:pesel>67050518448</PACJENCI:pesel>
+	<PACJENCI:oddzial>Neurologiczny</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>ischias</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/84012614886">
+	<PACJENCI:imie>Anna</PACJENCI:imie>
+	<PACJENCI:nazwisko>Jakaśtam</PACJENCI:nazwisko>
+	<PACJENCI:pesel>84012614886</PACJENCI:pesel>
+	<PACJENCI:oddzial>Położniczo-ginekologiczny</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>panhypopitarismus postpartualis</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/24071602334">
+	<PACJENCI:imie>Zbigniew</PACJENCI:imie>
+	<PACJENCI:nazwisko>Konieczny</PACJENCI:nazwisko>
+	<PACJENCI:pesel>24071602334</PACJENCI:pesel>
+	<PACJENCI:oddzial>Neurologiczny</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>hemiplegia glossovelopalatopharyngolaryngea</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/96050806314">
+	<PACJENCI:imie>Piotr</PACJENCI:imie>
+	<PACJENCI:nazwisko>Plikowski</PACJENCI:nazwisko>
+	<PACJENCI:pesel>96050806314</PACJENCI:pesel>
+	<PACJENCI:oddzial>Chirurgii urazowo-ortopedyczne</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>aluxatio patellae</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+    <rdf:li>
+      <rdf:Description rdf:about="http://X-hospital.com/patients/74103009734">
+	<PACJENCI:imie>Andrzej</PACJENCI:imie>
+	<PACJENCI:nazwisko>Kot</PACJENCI:nazwisko>
+	<PACJENCI:pesel>74103009734</PACJENCI:pesel>
+	<PACJENCI:oddzial>Kardiologiczny</PACJENCI:oddzial>
+	<PACJENCI:diagnoza>insufficientia valvulae mitralis</PACJENCI:diagnoza>
+      </rdf:Description>
+    </rdf:li>
+  </rdf:Seq>
+</rdf:RDF>

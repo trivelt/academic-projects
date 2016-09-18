@@ -1,0 +1,71 @@
+<html>
+<body>
+
+<span id="imie"><strong>Imie: </strong> </span><br />
+<span id="nazwisko"><strong>Nazwisko: </strong> </span><br />
+<span id="pesel"><strong>PESEL: </strong> </span><br />
+<span id="oddzial"><strong>Oddzial: </strong> </span><br />
+<span id="diagnoza"><strong>Diagnoza: </strong> </span><br />
+<span id="potwierdzona"><strong>&nbsp&nbsp&nbsp&nbspPotwierdzona: </strong> </span>
+
+<script charset="UTF-8">
+if (window.XMLHttpRequest)
+{
+	xmlhttp=new XMLHttpRequest();
+}
+else
+{
+	xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+xmlhttp.open("GET", "zad1b.xml", false);
+xmlhttp.send();
+xmlDoc=xmlhttp.responseXML; 
+
+var x=xmlDoc.getElementsByTagName("pacjent");
+var y = x[0];
+
+function displayInfo(i)
+{
+	y = x[i];
+
+	var imie = y.getElementsByTagName("imie")[0].firstChild.nodeValue;
+	var nazwisko = y.getElementsByTagName("nazwisko")[0].firstChild.nodeValue;
+	var pesel = y.getElementsByTagName("pesel")[0].firstChild.nodeValue;
+	var oddzial = y.getElementsByTagName("oddzial")[0].firstChild.nodeValue;
+	var diagnoza = y.getElementsByTagName("diagnoza")[0].firstChild.nodeValue;
+	var potwierdzona = y.getElementsByTagName("diagnoza")[0].getAttribute('potwierdzona');
+	
+	var imieNode = document.getElementById('imie');
+	var nazwiskoNode = document.getElementById('nazwisko');
+	var peselNode = document.getElementById('pesel');
+	var oddzialNode = document.getElementById('oddzial');
+	var diagnozaNode = document.getElementById('diagnoza');
+	var potwierdzonaNode = document.getElementById('potwierdzona');
+
+	imieNode.childNodes[1].nodeValue = imie;
+	nazwiskoNode.childNodes[1].nodeValue = nazwisko;
+	peselNode.childNodes[1].nodeValue = pesel;
+	oddzialNode.childNodes[1].nodeValue = oddzial;
+	diagnozaNode.childNodes[1].nodeValue = diagnoza;
+	potwierdzonaNode.childNodes[1].nodeValue = potwierdzona;
+
+}
+
+document.write("<h2>Pacjenci</h2><table border='1'><tr><th>Imie</th><th>Nazwisko</th>");
+
+for (i=0;i<x.length;i++)
+{ 
+	document.write('<tr onclick="displayInfo(');
+	document.write(i);
+	document.write(')">');
+	document.write("<td>");
+	document.write(x[i].getElementsByTagName("imie")[0].firstChild.nodeValue);
+	document.write("</td><td>");
+	document.write(x[i].getElementsByTagName("nazwisko")[0].firstChild.nodeValue);
+	document.write("</td></tr>");
+}
+document.write("</table>");
+</script>
+
+</body>
+</html>

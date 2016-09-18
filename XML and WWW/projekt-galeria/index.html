@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pl" lang="pl">
+<head>
+	<meta http-equiv="Content-type" content="application/xhtml+xml; charset=utf-8" />
+	<title>Galeria</title>
+ 
+	<script type="text/javascript" src="jQuery.js"></script>
+ 
+	<link rel="stylesheet" href="gallery.css" type="text/css" />
+ 
+	<script type="text/javascript">
+
+        function autoShow(){
+            $("#right-arrow-link").trigger("click");
+        }
+
+
+
+        $(document).ready(function() {
+			
+			$('.thumbnails ul li:first-child a img').css('opacity', 0.5);	
+            var currentPicture = 1;
+            var animation = $("input[name=slideshow-type]:checked").val();
+            var speed = 1000;
+            var intervalSeconds = 2;
+            var interval = null;
+
+
+            function random_animation(){
+                var animations = ["no_animatino", "mild", "topLeftZooming", "topRightZooming", "bottomLeftZooming", 
+                                "bottomRightZooming", "blinking"];
+                return animations[Math.floor(Math.random() * animations.length)];
+            }
+
+
+            function animate_picture(){
+                var animation_was_random = false;
+                if(animation == "random_animation"){
+                    animation = random_animation();
+                    animation_was_random = true;
+                }
+                if(animation == "no_animation"){
+                    // nothing
+
+                }
+                else if(animation == "mild"){
+                    $(".big").hide();
+                    $(".big").fadeIn(speed);
+                }
+                else if(animation == "topLeftZooming"){
+                    $(".big").hide();
+                    $(".big").css("opacity", 0);
+                    $(".big").show();
+                    $(".big").animate({left: "250px", opacity: 1, width: "15px"}, {queue: true, duration: 10});
+                    $(".big").animate({left: "250px", opacity: 1, width: "620px"}, {queue: true, duration: speed});
+                }
+                else if(animation == "topRightZooming"){
+                    $(".big").hide();
+                    $(".big").css("opacity", 0);
+                    $(".big").show();
+                    $(".big").animate({marginLeft: "500px", opacity: 1, width: "50px"}, {queue: true, duration: 10});
+                    $(".big").animate({margin: "0px", opacity: 1, width: "620px"}, {queue: true, duration: speed});
+                }
+                else if(animation == "bottomLeftZooming"){
+                    $(".big").hide();
+                    $(".big").css("opacity", 0);
+                    $(".big").show();
+                    $(".big").animate({marginTop: "400px", opacity: 1, width: "50px"}, {queue: true, duration: 10});
+                    $(".big").animate({margin: "0px", opacity: 1, width: "620px"}, {queue: true, duration: speed});
+                }
+                else if(animation == "bottomRightZooming"){
+                    $(".big").hide();
+                    $(".big").css("opacity", 0);
+                    $(".big").show();
+                    $(".big").animate({marginTop: "400px", marginLeft: "560px", opacity: 1, width: "50px"}, {queue: true, duration: 10});
+                    $(".big").animate({margin: "0px", opacity: 1, width: "620px"}, {queue: true, duration: speed});
+                }
+                else if(animation == "blinking"){
+                    $(".big").hide();
+                    $(".big").show();
+                    for(i=0; i<5; i++){
+                        $(".big").animate({opacity: 0.25}, speed/30.0);
+                        $(".big").animate({opacity: 1.0}, speed/30.0);
+                    }
+                }
+
+                if(animation_was_random){
+                    animation = "random_animation";
+                }
+            }
+
+
+
+			$(".thumbnails a").click(function(){
+				$('.thumbnails a img').css('opacity', 1);
+				$(this).children().css('opacity', 0.5);
+				
+				var path = $(this).attr("href");
+				var title_thumb = $(this).attr("title");
+                currentPicture = $(this).attr("title");
+				
+				$(".big").attr({ src: path, title: title_thumb });
+                animate_picture();
+				
+				return false;
+			});
+
+
+
+            $("#options-link").click(function(){
+                $("#options-form-container").toggle();
+            });
+
+
+
+            $("#play-pause-link").click(function(){
+                var imgTitle = $("#play-pause-img").attr("title")
+                if(imgTitle == "play"){
+                    clearInterval(interval);
+                    interval = setInterval(autoShow, intervalSeconds*1000);   
+                    $("#play-pause-img").attr({src: "img/pause.png", title: "pause" });
+                }
+                else if(imgTitle == "pause"){
+                    clearInterval(interval);
+                    $("#play-pause-img").attr({src: "img/play.png", title: "play" });
+                }             
+            });
+
+
+
+            $("#left-arrow-link").click(function(){
+                if(currentPicture == 1) {
+                currentPicture = ($(".thumbnails ul li").length + 1);
+                }
+
+                currentPicture--;
+                $(".big").attr({ src: "pictures/" + (currentPicture) + ".jpg", title: "xd" });
+                animate_picture();
+				$('.thumbnails a img').css('opacity', 1);
+		    	$('.thumbnails ul li:nth-child(' + (currentPicture) + ') a img').css('opacity', 0.5);	
+                return false;
+            });
+			
+
+
+            $("#right-arrow-link").click(function(){
+                if(currentPicture == $(".thumbnails ul li").length) {
+                currentPicture = 0;
+                }
+
+                currentPicture++;
+                $(".big").attr({ src: "pictures/" + (currentPicture) + ".jpg", title: currentPicture });
+
+                animate_picture();
+
+				$('.thumbnails a img').css('opacity', 1);
+		    	$('.thumbnails ul li:nth-child(' + (currentPicture) + ') a img').css('opacity', 0.5);	
+
+                return false;
+            });
+
+
+
+            $("#save").click(function(){
+                animation = $("input[name=slideshow-type]:checked").val();
+                intervalSeconds = $('input[name="seconds"]').val();
+
+                if(animation == "zooming"){
+                    var zoomingType = $("input[name=zooming-type]:checked").val();
+                    if(zoomingType == "top_left"){
+                        animation = "topLeftZooming";
+                    }
+                    else if(zoomingType == "top_right"){
+                        animation = "topRightZooming";
+                    }
+                    else if(zoomingType == "bottom_left"){
+                        animation = "bottomLeftZooming";
+                    }
+                    else if(zoomingType == "bottom_right"){
+                        animation = "bottomRightZooming";
+                    }
+                }
+   
+                var speed_mode = $("input[name=speed]:checked").val();
+                if(speed_mode == "slow"){
+                    speed = 2000;
+                }
+                else if(speed_mode == "normal"){
+                    speed = 1000;
+                }
+                else if(speed_mode == "fast"){
+                    speed = 500;
+                }
+
+                alert("Options saved");
+            });
+
+
+
+            $("input[name=slideshow-type]").change(function(){
+                if($(this).val() == "zooming"){
+                    $("#zooming-div").show();
+                }
+                else {
+                    $("#zooming-div").hide();
+                }
+            });
+
+		});
+	</script>
+</head>
+<body>
+
+    <div id="navigation-container">
+
+        <div id="play-pause">
+        <a id="play-pause-link" href="#"><img id="play-pause-img" title="play" width="60px" src="img/play.png" /></a>
+        </div>
+
+        <div id="left-arrow">
+        <a id="left-arrow-link" href="#"><img src="img/left-arrow.png" /></a>
+        </div>
+
+
+        <div id="right-arrow">
+        <a id="right-arrow-link" href=""><img src="img/right-arrow.png" /></a>
+        </div>
+
+	    <div id="container">
+		    <div class="gallery">
+			    <img class="big" title="1" src="pictures/1.jpg"/>
+		    </div>
+		    <div class="thumbnails">
+			    <ul>
+				    <li><a href="pictures/1.jpg" title="1"><img src="pictures/1-mini.jpg"/></a></li>
+				    <li><a href="pictures/2.jpg" title="2"><img src="pictures/2-mini.jpg"/></a></li>
+				    <li><a href="pictures/3.jpg" title="3"><img src="pictures/3-mini.jpg"/></a></li>
+				    <li><a href="pictures/4.jpg" title="4"><img src="pictures/4-mini.jpg"/></a></li>
+			    </ul>
+		    </div>
+	    </div>
+
+
+        <div id="options">
+        <a id="options-link" href="#">Options</a>
+        </div>
+
+        <div id="options-form-container" >
+            <form name="options-form" action="">
+                Animacja:<br />
+                <input type="radio" name="slideshow-type" value="no_animation" checked="checked"/>Bez animacji <br /> 
+                <input type="radio" name="slideshow-type" value="mild" />Lagodne przejscie <br />
+                <input type="radio" name="slideshow-type" value="zooming" id="zooming-radio" />Powiekszanie <br />
+                    <div id="zooming-div" style="margin-left: 30px; display:none">
+                    <input type="radio" name="zooming-type" value="top_left" checked="checked" />Lewy gorny rog<br />
+                    <input type="radio" name="zooming-type" value="top_right" />Prawy gorny rog<br />
+                    <input type="radio" name="zooming-type" value="bottom_left" />Lewy dolny rog<br />
+                    <input type="radio" name="zooming-type" value="bottom_right" />Prawy dolny rog<br />
+                    </div>
+                <input type="radio" name="slideshow-type" value="blinking" />Migotanie <br />
+                <input type="radio" name="slideshow-type" value="random_animation" />Losowa<br /><br />
+
+                Czas (sekundy): <input name="seconds" value="2" /><br />
+                
+                <br />Szybkosc:<br />
+                <input type="radio" name="speed" value="slow" checked="checked"/>Wolno <br /> 
+                <input type="radio" name="speed" value="normal" checked="checked"/>Normalnie <br />
+                <input type="radio" name="speed" value="fast" />Szybko <br /><br /> 
+ 
+               <input type="button" id="save" value="Zapisz" /><br />          
+     
+            </form>
+        </div>
+
+    </div>
+	
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<szpital>
+	<pacjent Status="Przyjęty">
+		<imie>Jan</imie>
+		<nazwisko>Kowalski</nazwisko>
+		<pesel>88022403771</pesel>
+		<oddzial>Chirurgii ogólnej</oddzial>
+		<diagnoza potwierdzona="tak">
+			appendicitis acuta
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Michał</imie>
+		<nazwisko>Okoń</nazwisko>
+		<pesel>81090804299</pesel>
+		<oddzial>Otolaryngologii</oddzial>
+		<diagnoza potwierdzona="nie">
+			tonsillitis chronica
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Przyjęty">
+		<imie>Katarzyna</imie>
+		<nazwisko>Nowakowska</nazwisko>
+		<pesel>99111608960</pesel>
+		<oddzial>Dziecięcy</oddzial>
+		<diagnoza potwierdzona="tak">
+			varicella
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Zarejestrowany">
+		<imie>Władysław</imie>
+		<nazwisko>Marzec</nazwisko>
+		<pesel>44101115711</pesel>
+		<oddzial>Kardiologiczny</oddzial>
+		<diagnoza potwierdzona="tak">
+			infarctus myocardii
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Wanda</imie>
+		<nazwisko>Kwiatkowska</nazwisko>
+		<pesel>67050518448</pesel>
+		<oddzial>Neurologiczny</oddzial>
+		<diagnoza potwierdzona="nie">
+			ischias
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Anna</imie>
+		<nazwisko>Jakaśtam</nazwisko>
+		<pesel>84012614886</pesel>
+		<oddzial>Położniczo-ginekologiczny</oddzial>
+		<diagnoza potwierdzona="tak">
+			panhypopitarismus postpartualis
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Zbigniew</imie>
+		<nazwisko>Konieczny</nazwisko>
+		<pesel>24071602334</pesel>
+		<oddzial>Neurologiczny</oddzial>
+		<diagnoza potwierdzona="tak">
+			hemiplegia glossovelopalatopharyngolaryngea
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Piotr</imie>
+		<nazwisko>Plikowski</nazwisko>
+		<pesel>96050806314</pesel>
+		<oddzial>Chirurgii urazowo-ortopedycznej</oddzial>
+		<diagnoza potwierdzona="tak">
+			luxatio patellae
+		</diagnoza>
+	</pacjent>
+	<pacjent Status="Wypisany">
+		<imie>Andrzej</imie>
+		<nazwisko>Kot</nazwisko>
+		<pesel>74103009734</pesel>
+		<oddzial>Kardiologiczny</oddzial>
+		<diagnoza potwierdzona="nie">
+			insufficientia valvulae mitralis
+		</diagnoza>
+	</pacjent>
+</szpital>
+
