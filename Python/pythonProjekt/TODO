@@ -1,0 +1,5 @@
+* Testy do wszystkiego
+* Wyjątki, sprawdzanie błędów i argumentów, np.:
+	# czy dodawany sasiad jest juz na liscie sasiadów
+* Sortowanie list, TESTY SORTOWANIA
+* napisać --help, --version
