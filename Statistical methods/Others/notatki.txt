@@ -1,0 +1,43 @@
+1) Wstęp: 
+    * generator (mi, sigma^2) [rozkladu normalnego]
+    * Rysunek (wykres) x od funkcji gestosci prawdopodobienstwa (np. mi=2, sigma=3). Znormalizowany histogram, porownanie z teoretycznym rozkladem
+    * Uzyc najlepiej generatora Masali: N(0,1)   x,y naleza do (-1,1) -> z=x^2+y^2 -> mi_1 = x sqrt((-2) * z) * ), mi_1 ma rozklad N(0,1)
+    Jezeli x ma N(mi_0, sigma_0^2) to Y = AX+B ma rozklad N(x_0*A+B, (sigma_0*|A|)^2 )  A=3, B=2
+    N(0,1) -> N(2,9)
+    
+    
+    wariancja, mediana, srednia
+    9-elementowe probki
+    
+    Wygenerowac 9-elementowa probke i znalezc estymator punktowy i przedizalowy dla wart. oczek. i wariancji, poz. ufn = 0.95
+    wygenerowac np. 1000 probek 9-el., 25-el, dla każdej z próbek policzyc estymatory wart. oczek., wariancji i mediany
+    
+    
+ 1. Dokonczyk histogram rozkladu N(2,9)
+ 2. Wylosowac jedna probke n=9 z rozkladu N(2,9) i obliczyc estymatory punktowe:
+    * wartosci oczekiwanej (srednia)
+    * estymator wariancji S_n-1 
+    * estymator wariancji S_n
+    * estymator mediany (wartosc srodkowa po uporzadkowaniu)
+    
+   # Dla tej samej próbki wyliczyc przedzial ufnosci (dla wartosci oczekiwanej [znamy sigma] i wariancji) na poziomie ufnosci gamma = 0.95
+   
+ 3. Wygenerowac 100 tys. 9-elementowych probek i narysowac cztery histogramy estymatorow
+
+=====================================================
+ 
+* Obciążenie estymatorów: wartosc oczekiwana - prawdziwa wartosc
+ B - liczba próbek
+ Bias(T(X)) = E(T(X)) - Theta, np.
+  (1/N) * [Suma po i=1 do B z x_i] 
+  
+  
+* Wariancja estymatora: var(T(X)) = E(T^2(X)) - (E(T(X)))^2
+
+
+=====================================================
+ 
+1. Generujemy jedną probe n=9 elementowa i z niej B=9^9 probek bootstrapowych (losujemy z powtorzeniami)
+2. Rysujemy histogramy (cztery, jak poprzednio) dla tych probek
+3. Liczymy obciążenia Bias* (* - bootstrapowy), wariancje, przedzialy ufnosci dla wartosci sredniej i mediany
+4. Dystrybuanta empiryczna - -> kwantyle [Q*, Q*] "Percentylowy przedzial ufnosci"
