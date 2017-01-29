@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     CompareRecordingsTab.cpp \
     RecognizeVoiceTab.cpp \
     AudioFilesComparator.cpp \
-    VoiceRecognizer.cpp
+    VoiceRecognizer.cpp \
+    Recording.cpp
 
 HEADERS  += \
     XmlDatabaseReader.h \
@@ -28,4 +29,5 @@ HEADERS  += \
     CompareRecordingsTab.h \
     RecognizeVoiceTab.h \
     AudioFilesComparator.h \
-    VoiceRecognizer.h
+    VoiceRecognizer.h \
+    Recording.h
