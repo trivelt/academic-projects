@@ -56,4 +56,5 @@ QList<Recording> XmlDatabaseReader::getRecordings()
         n = n.nextSibling();
     }
    configFile.close();
+   return recordings;
 }

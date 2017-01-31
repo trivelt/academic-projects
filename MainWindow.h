@@ -24,6 +24,9 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+private:
+    void setWindowInCentre();
+
 };
 
 #endif // MAINWINDOW_H
