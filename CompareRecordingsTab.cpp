@@ -1,4 +1,6 @@
 #include "CompareRecordingsTab.h"
+#include "XmlDatabaseReader.h"
+
 #include <QLabel>
 #include <QLineEdit>
 #include <QBoxLayout>
@@ -39,4 +41,6 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     mainLayout->addWidget(lastModValueLabel);
     mainLayout->addStretch(1);
     setLayout(mainLayout);
+
+    XmlDatabaseReader::getRecordings();
 }

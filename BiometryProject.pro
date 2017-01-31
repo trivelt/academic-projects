@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     RecognizeVoiceTab.cpp \
     AudioFilesComparator.cpp \
     VoiceRecognizer.cpp \
-    Recording.cpp
+    Recording.cpp \
+    InitParameters.cpp
 
 HEADERS  += \
     XmlDatabaseReader.h \
@@ -30,4 +31,5 @@ HEADERS  += \
     RecognizeVoiceTab.h \
     AudioFilesComparator.h \
     VoiceRecognizer.h \
-    Recording.h
+    Recording.h \
+    InitParameters.h
