@@ -1,11 +1,15 @@
 #include "RecognizeVoiceTab.h"
-#include <QLabel>
-#include <QLineEdit>
+#include "AudioFilesComparator.h"
 #include <QBoxLayout>
-#include <QPushButton>
+#include <QFileDialog>
+#include <QDebug>
 
 RecognizeVoiceTab::RecognizeVoiceTab(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent),
+      selectedFile(""),
+      compareFilesButton(0),
+      selectedFileEdit(0),
+      resultLabel(0)
 {
     resize(300, 300);
 
@@ -20,9 +24,9 @@ RecognizeVoiceTab::RecognizeVoiceTab(QWidget *parent)
     rootLayout->addWidget(selectFileLabel);
 
     QHBoxLayout* filesLayout = new QHBoxLayout;
-    QLineEdit* selectedFileEdit = new QLineEdit("");
+    selectedFileEdit = new QLineEdit("");
     QPushButton* selectButton = new QPushButton("...");
-    QPushButton* compareFilesButton = new QPushButton("Compare");
+    compareFilesButton = new QPushButton("Compare");
     selectedFileEdit->setDisabled(true);
     compareFilesButton->setDisabled(true);
     filesLayout->addWidget(selectedFileEdit);
@@ -59,9 +63,27 @@ RecognizeVoiceTab::RecognizeVoiceTab(QWidget *parent)
     line2->setFrameShadow(QFrame::Sunken);
     rootLayout->addWidget(line2);
 
-    QLabel* resultLabel = new QLabel("");
+    resultLabel = new QLabel("");
     resultLabel->setMaximumHeight(100);
+    resultLabel->setAlignment(Qt::AlignCenter);
     rootLayout->addWidget(resultLabel);
 
+    connect(selectButton, SIGNAL(clicked(bool)), this, SLOT(selectFileClicked()));
+    connect(compareFilesButton, SIGNAL(clicked(bool)), this, SLOT(compareFilesClicked()));
+
     setLayout(rootLayout);
+}
+
+void RecognizeVoiceTab::selectFileClicked()
+{
+    selectedFile = QFileDialog::getOpenFileName(this, "Select audio file", "", "WAV files (*.wav)");
+    compareFilesButton->setEnabled(selectedFile != "");
+    selectedFileEdit->setText(selectedFile);
+}
+
+void RecognizeVoiceTab::compareFilesClicked()
+{
+    AudioFilesComparator audioComparator;
+    QString resultString = audioComparator.recognizeVoice(selectedFile);
+    resultLabel->setText(resultString);
 }

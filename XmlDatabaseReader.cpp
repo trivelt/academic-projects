@@ -46,12 +46,9 @@ QList<Recording> XmlDatabaseReader::getRecordings()
                     Recording recording(titleElement.text(), filepathElement.text(), authorElement.text(), dateElement.text());
                     recordings.append(recording);
 
-                    qDebug() << titleElement.text() << " " << filepathElement.text() << " " << authorElement.text() << " " << dateElement.text();
-
                     recordingNode = recordingNode.nextSibling();
                 }
             }
-            qDebug() << qPrintable(e.tagName()); // the node really is an element.
         }
         n = n.nextSibling();
     }

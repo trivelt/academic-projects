@@ -9,6 +9,8 @@ public:
     AudioFilesComparator();
     double compareTwoFiles(QString filepath1, QString filepath2);
     bool isTheSameVoice(double correlation);
+    QString recognizeVoice(QString filepath);
+    static int counter;
 
 };
 
