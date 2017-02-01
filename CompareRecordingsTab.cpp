@@ -1,82 +1,106 @@
 #include "CompareRecordingsTab.h"
 #include "XmlDatabaseReader.h"
 
-#include <QLabel>
 #include <QLineEdit>
 #include <QBoxLayout>
-#include <QListWidget>
 #include <QPushButton>
+#include <QtCore>
 
 CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
-    : QWidget(parent)
+    : QWidget(parent),
+      firstListWidget(0),
+      secondListWidget(0),
+      firstItemInfoLabel(0),
+      secondItemInfoLabel(0)
 {
     resize(300, 300);
-//    QLabel *fileNameLabel = new QLabel(tr("File Name:"));
-//    QLineEdit *fileNameEdit = new QLineEdit("fileInfo.fileName()");
-
-//    QLabel *pathLabel = new QLabel(tr("Path:"));
-//    QLabel *pathValueLabel = new QLabel("fileInfo.absoluteFilePath()");
-//    pathValueLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
-//    QLabel *sizeLabel = new QLabel(tr("Size:"));
-//    QLabel *sizeValueLabel = new QLabel("size");
-//    sizeValueLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
-//    QLabel *lastReadLabel = new QLabel(tr("Last Read:"));
-//    QLabel *lastReadValueLabel = new QLabel("fileInfo.lastRead().toString()");
-//    lastReadValueLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
-//    QLabel *lastModLabel = new QLabel(tr("Last Modified:"));
-//    QLabel *lastModValueLabel = new QLabel("fileInfo.lastModified().toString()");
-//    lastModValueLabel->setFrameStyle(QFrame::Panel | QFrame::Sunken);
-
     QHBoxLayout *mainLayout = new QHBoxLayout;
-//    mainLayout->addWidget(fileNameLabel);
-//    mainLayout->addWidget(fileNameEdit);
-//    mainLayout->addWidget(pathLabel);
-//    mainLayout->addWidget(pathValueLabel);
-//    mainLayout->addWidget(sizeLabel);
-//    mainLayout->addWidget(sizeValueLabel);
-//    mainLayout->addWidget(lastReadLabel);
-//    mainLayout->addWidget(lastReadValueLabel);
-//    mainLayout->addWidget(lastModLabel);
-//    mainLayout->addWidget(lastModValueLabel);
-//    mainLayout->addStretch(1);
 
-    QListWidgetItem* item1 = new QListWidgetItem("ABC");
-    QListWidgetItem* item2 = new QListWidgetItem("ABC");
-    QListWidgetItem* item3 = new QListWidgetItem("ABC");
-    QListWidgetItem* item4 = new QListWidgetItem("ABC");
-    QListWidgetItem* item5 = new QListWidgetItem("ABC");
+    firstListWidget = new QListWidget(this);
+    secondListWidget = new QListWidget(this);
 
-    QListWidget* firstListWidget = new QListWidget(this);
-    firstListWidget->addItem(item1);
-    firstListWidget->addItem(item2);
-    firstListWidget->addItem(item3);
-    firstListWidget->addItem(item4);
-    firstListWidget->addItem(item5);
+    recordings = XmlDatabaseReader::getRecordings();
+    foreach (Recording recording, recordings)
+    {
+        QListWidgetItem* firstItem = new QListWidgetItem(recording.getTitle());
+        QListWidgetItem* secondItem = new QListWidgetItem(recording.getTitle());
+        firstListWidget->addItem(firstItem);
+        secondListWidget->addItem(secondItem);
 
-    QListWidgetItem* item7 = new QListWidgetItem("ABC");
+    }
 
-    QListWidget* secondListWidget = new QListWidget(this);
-    secondListWidget->addItem(item7);
-    secondListWidget->addItem(item2);
-    secondListWidget->addItem(item3);
-    secondListWidget->addItem(item4);
-    secondListWidget->addItem(item5);
+    connect(firstListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(listItemChanged()));
+    connect(secondListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(listItemChanged()));
 
+    firstItemInfoLabel = new QLabel("");
+    secondItemInfoLabel = new QLabel("");
 
+    firstItemInfoLabel->setMinimumWidth(220);
+    secondItemInfoLabel->setMinimumWidth(220);
+    firstItemInfoLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    secondItemInfoLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+
+    mainLayout->addWidget(firstItemInfoLabel);
     mainLayout->addWidget(firstListWidget);
     mainLayout->addWidget(secondListWidget);
+    mainLayout->addWidget(secondItemInfoLabel);
 
-//    setLayout(mainLayout);
 
     QVBoxLayout* rootLayout = new QVBoxLayout;
     rootLayout->addLayout(mainLayout);
 
+    QFrame* line = new QFrame(this);
+    line->setObjectName(QString::fromUtf8("line"));
+    line->setGeometry(QRect(320, 150, 118, 3));
+    line->setFrameShape(QFrame::HLine);
+    line->setFrameShadow(QFrame::Sunken);
+    rootLayout->addWidget(line);
+
+    QLabel* resultLabel = new QLabel("");
+    resultLabel->setMinimumHeight(100);
+    resultLabel->setAlignment(Qt::AlignCenter);
+    rootLayout->addWidget(resultLabel);
+
+    QFrame* line2 = new QFrame(this);
+    line2->setObjectName(QString::fromUtf8("line"));
+    line2->setGeometry(QRect(320, 150, 118, 3));
+    line2->setFrameShape(QFrame::HLine);
+    line2->setFrameShadow(QFrame::Sunken);
+    rootLayout->addWidget(line2);
+
     QPushButton* btn1 = new QPushButton("Compare");
     rootLayout->addWidget(btn1);
+
     setLayout(rootLayout);
 
     XmlDatabaseReader::getRecordings();
+}
+
+void CompareRecordingsTab::listItemChanged()
+{
+    QListWidget* listWidget = (QListWidget*) sender();
+    QListWidgetItem* item = listWidget->selectedItems().at(0);
+    Recording recording = recordings[listWidget->row(item)];
+    QString detailsText = prepareDetailsText(recording);
+    if(listWidget == firstListWidget)
+    {
+        firstItemInfoLabel->setText(detailsText);
+    }
+    else
+    {
+        secondItemInfoLabel->setText(detailsText);
+    }
+}
+
+QString CompareRecordingsTab::prepareDetailsText(Recording recording)
+{
+    QString text = "<b>Title:</b><br />";
+    text += recording.getTitle();
+    text += "<br /><br /><b>File:</b><br />";
+    text += recording.getFilepath();
+    text += "<br /><br /><b>Author:</b><br />";
+    text += recording.getAuthor();
+    text += "<br /><br /><b>Date:</b><br />";
+    text += recording.getDate();
+    return text;
 }
