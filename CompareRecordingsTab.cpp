@@ -1,9 +1,9 @@
 #include "CompareRecordingsTab.h"
 #include "XmlDatabaseReader.h"
+#include "AudioFilesComparator.h"
 
 #include <QLineEdit>
 #include <QBoxLayout>
-#include <QPushButton>
 #include <QtCore>
 
 CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
@@ -11,7 +11,9 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
       firstListWidget(0),
       secondListWidget(0),
       firstItemInfoLabel(0),
-      secondItemInfoLabel(0)
+      secondItemInfoLabel(0),
+      resultLabel(0),
+      compareButton(0)
 {
     resize(300, 300);
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -56,7 +58,7 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     line->setFrameShadow(QFrame::Sunken);
     rootLayout->addWidget(line);
 
-    QLabel* resultLabel = new QLabel("");
+    resultLabel = new QLabel("");
     resultLabel->setMinimumHeight(100);
     resultLabel->setAlignment(Qt::AlignCenter);
     rootLayout->addWidget(resultLabel);
@@ -68,8 +70,10 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     line2->setFrameShadow(QFrame::Sunken);
     rootLayout->addWidget(line2);
 
-    QPushButton* btn1 = new QPushButton("Compare");
-    rootLayout->addWidget(btn1);
+    compareButton = new QPushButton("Compare");
+    rootLayout->addWidget(compareButton);
+    compareButton->setEnabled(false);
+    connect(compareButton, SIGNAL(clicked()), this, SLOT(compareButtonClicked()));
 
     setLayout(rootLayout);
 
@@ -90,6 +94,33 @@ void CompareRecordingsTab::listItemChanged()
     {
         secondItemInfoLabel->setText(detailsText);
     }
+
+    if(firstListWidget->selectedItems().size() > 0 && secondListWidget->selectedItems().size() > 0)
+    {
+        compareButton->setEnabled(true);
+    }
+}
+
+void CompareRecordingsTab::compareButtonClicked()
+{
+    QListWidgetItem* firstItem = firstListWidget->selectedItems().at(0);
+    Recording firstRecording = recordings[firstListWidget->row(firstItem)];
+
+    QListWidgetItem* secondItem = firstListWidget->selectedItems().at(0);
+    Recording secondRecording = recordings[firstListWidget->row(secondItem)];
+
+    AudioFilesComparator audioComparator;
+    double correlation = audioComparator.compareTwoFiles(firstRecording.getFilepath(), secondRecording.getFilepath());
+    QString resultText = "Correlation: <b>" + QString::number(correlation) + "</b><br /><br />";
+    if(audioComparator.isTheSameVoice(correlation))
+    {
+        resultText += "<b>These voices belong to the same person</b>";
+    }
+    else
+    {
+        resultText += "<b>These voices belong to the different people</b>";
+    }
+    resultLabel->setText(resultText);
 }
 
 QString CompareRecordingsTab::prepareDetailsText(Recording recording)

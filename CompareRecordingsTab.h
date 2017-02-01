@@ -3,6 +3,7 @@
 #include <QWidget>
 #include <QLabel>
 #include <QListWidget>
+#include <QPushButton>
 #include "Recording.h"
 
 class CompareRecordingsTab : public QWidget
@@ -14,6 +15,7 @@ public:
 
 public slots:
     void listItemChanged();
+    void compareButtonClicked();
 
 private:
     QString prepareDetailsText(Recording recording);
@@ -22,7 +24,9 @@ private:
     QListWidget* firstListWidget;
     QListWidget* secondListWidget;
     QLabel* firstItemInfoLabel;
-    QLabel* secondItemInfoLabel ;
+    QLabel* secondItemInfoLabel;
+    QLabel* resultLabel;
+    QPushButton* compareButton;
 };
 
 #endif // COMPARERECORDINGSTAB_H
