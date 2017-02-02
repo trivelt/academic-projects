@@ -5,6 +5,8 @@
 #include <QLineEdit>
 #include <QBoxLayout>
 #include <QtCore>
+#include <QSound>
+#include <QMediaPlayer>
 
 CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     : QWidget(parent),
@@ -13,7 +15,9 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
       firstItemInfoLabel(0),
       secondItemInfoLabel(0),
       resultLabel(0),
-      compareButton(0)
+      compareButton(0),
+      firstPlayButton(0),
+      secondPlayButton(0)
 {
     resize(300, 300);
     QHBoxLayout *mainLayout = new QHBoxLayout;
@@ -52,6 +56,15 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     QVBoxLayout* rootLayout = new QVBoxLayout;
     rootLayout->addLayout(mainLayout);
 
+    QHBoxLayout* audioPlayLayout = new QHBoxLayout;
+    firstPlayButton = new QPushButton("Play");
+    secondPlayButton = new QPushButton("Play");
+    firstPlayButton->setDisabled(true);
+    secondPlayButton->setDisabled(true);
+    audioPlayLayout->addWidget(firstPlayButton);
+    audioPlayLayout->addWidget(secondPlayButton);
+    rootLayout->addLayout(audioPlayLayout);
+
     QFrame* line = new QFrame(this);
     line->setObjectName(QString::fromUtf8("line"));
     line->setGeometry(QRect(320, 150, 118, 3));
@@ -74,7 +87,10 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     compareButton = new QPushButton("Compare");
     rootLayout->addWidget(compareButton);
     compareButton->setEnabled(false);
+
     connect(compareButton, SIGNAL(clicked()), this, SLOT(compareButtonClicked()));
+    connect(firstPlayButton, SIGNAL(clicked(bool)), this, SLOT(playFirstAudio()));
+    connect(secondPlayButton, SIGNAL(clicked(bool)), this, SLOT(playSecondAudio()));
 
     setLayout(rootLayout);
 
@@ -96,10 +112,12 @@ void CompareRecordingsTab::listItemChanged()
     if(listWidget == firstListWidget)
     {
         firstItemInfoLabel->setText(detailsText);
+        firstPlayButton->setEnabled(true);
     }
     else
     {
         secondItemInfoLabel->setText(detailsText);
+        secondPlayButton->setEnabled(true);
     }
 
     if(firstListWidget->selectedItems().size() > 0 && secondListWidget->selectedItems().size() > 0)
@@ -155,4 +173,25 @@ void CompareRecordingsTab::updateRecordingsList()
         firstListWidget->addItem(firstItem);
         secondListWidget->addItem(secondItem);
     }
+}
+
+void CompareRecordingsTab::playFirstAudio()
+{
+    if(firstListWidget->selectedItems().isEmpty())
+        return;
+    QListWidgetItem* item = firstListWidget->selectedItems().at(0);
+    Recording recording = recordings[firstListWidget->row(item)];
+    QString filepath = recording.getFilepath();
+    qDebug() << "filepath=" << filepath;
+    QSound::play(filepath);
+}
+
+void CompareRecordingsTab::playSecondAudio()
+{
+    if(secondListWidget->selectedItems().isEmpty())
+        return;
+    QListWidgetItem* item = secondListWidget->selectedItems().at(0);
+    Recording recording = recordings[secondListWidget->row(item)];
+    QString filepath = recording.getFilepath();
+    QSound::play(filepath);
 }

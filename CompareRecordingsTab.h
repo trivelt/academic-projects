@@ -17,6 +17,8 @@ public slots:
     void listItemChanged();
     void compareButtonClicked();
     void updateRecordingsList();
+    void playFirstAudio();
+    void playSecondAudio();
 
 private:
     QString prepareDetailsText(Recording recording);
@@ -28,6 +30,8 @@ private:
     QLabel* secondItemInfoLabel;
     QLabel* resultLabel;
     QPushButton* compareButton;
+    QPushButton* firstPlayButton;
+    QPushButton* secondPlayButton;
 };
 
 #endif // COMPARERECORDINGSTAB_H

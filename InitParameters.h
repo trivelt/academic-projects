@@ -8,6 +8,7 @@ class InitParameters
 public:
     InitParameters();
     static QString configFilepath();
+    static QString audioOutputFile();
 };
 
 #endif // INITPARAMETERS_H
