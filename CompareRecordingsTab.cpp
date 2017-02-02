@@ -183,7 +183,11 @@ void CompareRecordingsTab::playFirstAudio()
     Recording recording = recordings[firstListWidget->row(item)];
     QString filepath = recording.getFilepath();
     qDebug() << "filepath=" << filepath;
-    QSound::play(filepath);
+//    QSound::play(filepath);
+
+    QMediaPlayer* player = new QMediaPlayer(this);
+    player->setMedia(QUrl::fromLocalFile(filepath));
+    player->play();
 }
 
 void CompareRecordingsTab::playSecondAudio()
@@ -193,5 +197,8 @@ void CompareRecordingsTab::playSecondAudio()
     QListWidgetItem* item = secondListWidget->selectedItems().at(0);
     Recording recording = recordings[secondListWidget->row(item)];
     QString filepath = recording.getFilepath();
-    QSound::play(filepath);
+
+    QMediaPlayer* player = new QMediaPlayer(this);
+    player->setMedia(QUrl::fromLocalFile(filepath));
+    player->play();
 }
