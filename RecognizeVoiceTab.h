@@ -32,6 +32,7 @@ private:
     QLabel* resultLabel;
     QAudioRecorder *audioRecorder;
     QLabel* recordingLabel;
+    QPushButton* stopButton;
 };
 
 #endif // RECOGNIZEVOICETAB_H

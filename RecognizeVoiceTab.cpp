@@ -11,7 +11,8 @@ RecognizeVoiceTab::RecognizeVoiceTab(QWidget *parent)
       compareFilesButton(0),
       selectedFileEdit(0),
       resultLabel(0),
-      recordingLabel(0)
+      recordingLabel(0),
+      stopButton(0)
 {
     audioRecorder = new QAudioRecorder(this);
     connect(audioRecorder, SIGNAL(durationChanged(qint64)), this,
@@ -61,8 +62,8 @@ RecognizeVoiceTab::RecognizeVoiceTab(QWidget *parent)
 
     QHBoxLayout* recordingsButtonLayout = new QHBoxLayout;
     QPushButton* recordButton = new QPushButton("Record");
-    QPushButton* stopButton = new QPushButton("Stop and compare");
-//    stopButton->setDisabled(true);
+    stopButton = new QPushButton("Stop and compare");
+    stopButton->setDisabled(true);
     recordingsButtonLayout->addWidget(recordButton);
     recordingsButtonLayout->addWidget(stopButton);
     rootLayout->addLayout(recordingsButtonLayout);
@@ -127,6 +128,7 @@ void RecognizeVoiceTab::recordClicked()
         container = "audio/x-wav";
 
     audioRecorder->setEncodingSettings(settings, QVideoEncoderSettings(), container);
+    stopButton->setEnabled(true);
     audioRecorder->record();
 
 }
@@ -137,6 +139,7 @@ void RecognizeVoiceTab::stopClicked()
     AudioFilesComparator audioComparator;
     QString resultString = audioComparator.recognizeVoice(InitParameters::audioOutputFile());
     resultLabel->setText(resultString);
+    stopButton->setDisabled(true);
 }
 
 void RecognizeVoiceTab::updateProgress(qint64 progress)
