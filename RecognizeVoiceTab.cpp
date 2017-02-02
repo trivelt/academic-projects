@@ -118,7 +118,7 @@ void RecognizeVoiceTab::recordClicked()
     settings.setCodec(QString());
     settings.setSampleRate(0);
     settings.setBitRate(0);
-    settings.setChannelCount(-1);
+    settings.setChannelCount(1);
     settings.setQuality(QMultimedia::VeryHighQuality);
     settings.setEncodingMode(QMultimedia::ConstantQualityEncoding);
 
