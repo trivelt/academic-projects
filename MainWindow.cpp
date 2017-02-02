@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "CompareRecordingsTab.h"
 #include "RecognizeVoiceTab.h"
+#include "AddAudioFileTab.h"
 
 #include <QDesktopWidget>
 #include <QApplication>
@@ -41,8 +42,15 @@ MainWidget::MainWidget(QWidget *parent)
     tabWidget = new QTabWidget;
 
     QVBoxLayout *mainLayout = new QVBoxLayout;
-    tabWidget->addTab(new CompareRecordingsTab(), "Compare recordings");
+
+    CompareRecordingsTab* compareRecordingsTab = new CompareRecordingsTab();
+    AddAudioFileTab* addAudioFileTab = new AddAudioFileTab();
+
+    connect(addAudioFileTab, SIGNAL(audioAdded()), compareRecordingsTab, SLOT(updateRecordingsList()));
+
+    tabWidget->addTab(compareRecordingsTab, "Compare recordings");
     tabWidget->addTab(new RecognizeVoiceTab(), "Recognize the voice");
+    tabWidget->addTab(addAudioFileTab, "Add audio to database");
     mainLayout->addWidget(tabWidget);
     setLayout(mainLayout);
 }

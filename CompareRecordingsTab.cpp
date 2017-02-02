@@ -28,7 +28,6 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
         QListWidgetItem* secondItem = new QListWidgetItem(recording.getTitle());
         firstListWidget->addItem(firstItem);
         secondListWidget->addItem(secondItem);
-
     }
 
     connect(firstListWidget, SIGNAL(itemSelectionChanged()), this, SLOT(listItemChanged()));
@@ -41,6 +40,8 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
     secondItemInfoLabel->setMinimumWidth(220);
     firstItemInfoLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
     secondItemInfoLabel->setAlignment(Qt::AlignLeft | Qt::AlignTop);
+    firstItemInfoLabel->setWordWrap(true);
+    secondItemInfoLabel->setWordWrap(true);
 
     mainLayout->addWidget(firstItemInfoLabel);
     mainLayout->addWidget(firstListWidget);
@@ -83,6 +84,12 @@ CompareRecordingsTab::CompareRecordingsTab(QWidget *parent)
 void CompareRecordingsTab::listItemChanged()
 {
     QListWidget* listWidget = (QListWidget*) sender();
+    if(listWidget->selectedItems().isEmpty())
+    {
+        firstItemInfoLabel->setText("");
+        secondItemInfoLabel->setText("");
+        return;
+    }
     QListWidgetItem* item = listWidget->selectedItems().at(0);
     Recording recording = recordings[listWidget->row(item)];
     QString detailsText = prepareDetailsText(recording);
@@ -134,4 +141,18 @@ QString CompareRecordingsTab::prepareDetailsText(Recording recording)
     text += "<br /><br /><b>Date:</b><br />";
     text += recording.getDate();
     return text;
+}
+
+void CompareRecordingsTab::updateRecordingsList()
+{
+    firstListWidget->clear();
+    secondListWidget->clear();
+    recordings = XmlDatabaseReader::getRecordings();
+    foreach (Recording recording, recordings)
+    {
+        QListWidgetItem* firstItem = new QListWidgetItem(recording.getTitle());
+        QListWidgetItem* secondItem = new QListWidgetItem(recording.getTitle());
+        firstListWidget->addItem(firstItem);
+        secondListWidget->addItem(secondItem);
+    }
 }

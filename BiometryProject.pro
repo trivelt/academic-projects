@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     AudioFilesComparator.cpp \
     VoiceRecognizer.cpp \
     Recording.cpp \
-    InitParameters.cpp
+    InitParameters.cpp \
+    AddAudioFileTab.cpp
 
 HEADERS  += \
     XmlDatabaseReader.h \
@@ -32,4 +33,5 @@ HEADERS  += \
     AudioFilesComparator.h \
     VoiceRecognizer.h \
     Recording.h \
-    InitParameters.h
+    InitParameters.h \
+    AddAudioFileTab.h

@@ -16,6 +16,7 @@ public:
 public slots:
     void listItemChanged();
     void compareButtonClicked();
+    void updateRecordingsList();
 
 private:
     QString prepareDetailsText(Recording recording);
