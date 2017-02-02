@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QLineEdit>
+#include <QAudioRecorder>
 
 class AddAudioFileTab : public QWidget
 {
@@ -21,13 +22,22 @@ public slots:
     void selectFileClicked();
     void checkIfAddButonCanBeEnabled();
 
+    void selectAudioOutputClicked();
+    void recordClicked();
+    void stopClicked();
+    void updateProgress(qint64 progress);
+
 private:
     QLineEdit* selectedFileEdit;
     QLineEdit* titleEdit;
     QLineEdit* authorEdit;
     QPushButton* addButton;
     QLabel* resultLabel;
-
+    QLabel* recordingInfoLabel;
+    QAudioRecorder* audioRecorder;
+    QLineEdit* recordingFilepathEdit;
+    QPushButton* recordButton;
+    QPushButton* stopButton;
 };
 
 #endif // ADDAUDIOFILETAB_H
