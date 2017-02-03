@@ -1,6 +1,7 @@
 #include "AudioFilesComparator.h"
 #include "Recording.h"
 #include "XmlDatabaseReader.h"
+#include "VoiceRecognizer.h"
 #include <QHash>
 #include <QDebug>
 
@@ -21,7 +22,7 @@ double AudioFilesComparator::compareTwoFiles(QString filepath1, QString filepath
 //        return 0.03;
 //    if(counter == 3)
 //        return 0.34;
-    return 0.2;
+    return VoiceRecognizer::getCorrCoefficientBetweenTwoSamples(filepath1.toStdString(), filepath2.toStdString());
 }
 
 bool AudioFilesComparator::isTheSameVoice(double correlation)
