@@ -13,3 +13,8 @@ QString InitParameters::audioOutputFile()
 {
     return "/home/maciej/tmpAudio.wav";
 }
+
+double InitParameters::thresholdCorrelationValue()
+{
+    return 0.2;
+}

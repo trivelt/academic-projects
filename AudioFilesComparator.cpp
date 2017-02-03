@@ -2,6 +2,7 @@
 #include "Recording.h"
 #include "XmlDatabaseReader.h"
 #include "VoiceRecognizer.h"
+#include "InitParameters.h"
 #include <QHash>
 #include <QDebug>
 
@@ -27,7 +28,7 @@ double AudioFilesComparator::compareTwoFiles(QString filepath1, QString filepath
 
 bool AudioFilesComparator::isTheSameVoice(double correlation)
 {
-    return correlation > 0.2;
+    return correlation >= InitParameters::thresholdCorrelationValue();
 }
 
 QString AudioFilesComparator::recognizeVoice(QString filepath)
@@ -83,7 +84,7 @@ QString AudioFilesComparator::recognizeVoice(QString filepath)
     }
 
     QString resultText = "";
-    if(bestAuthor != "")
+    if(bestAuthor != "" && bestAvgCorrelation >= InitParameters::thresholdCorrelationValue())
     {
         resultText += "<b>This voice was recognized as the voice of " + bestAuthor;
         resultText += " (avg correlation " + QString::number(bestAvgCorrelation) + ")</b><br /><br />";
