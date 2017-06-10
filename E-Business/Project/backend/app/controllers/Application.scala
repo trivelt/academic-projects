@@ -3,13 +3,19 @@ package controllers
 import javax.inject.Inject
 
 import daos.ProductsDAO
+import daos.CategoriesDAO
+
 import models.ProductsREST
+import models.CategoriesREST
+
 import models.Products
+import models.Categories
+
 import play.api.libs.json.Json
 import play.api.mvc._
 import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
-class Application @Inject() (productsDAO: ProductsDAO) extends Controller {
+class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: CategoriesDAO) extends Controller {
 
   def index = Action.async { implicit  request =>
     productsDAO.all map {
@@ -22,5 +28,11 @@ class Application @Inject() (productsDAO: ProductsDAO) extends Controller {
     var product = Products(prodId = 0, tytul = json.tytul, opis = json.opis)
     productsDAO.insert(product)
     Ok(request.body.asJson.get)
+  }
+
+  def categories = Action.async { implicit  request =>
+    categoriesDAO.all map {
+      categories => Ok(Json.toJson(categories))
+    }
   }
 }

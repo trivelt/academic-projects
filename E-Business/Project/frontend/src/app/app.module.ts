@@ -6,17 +6,20 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
+import { CategoryComponent } from './category/category.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
 import {RouterModule} from "@angular/router";
 import {ProductService} from "./product/product.service";
+import {CategoryService} from "./category/category.service";
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,
@@ -26,12 +29,14 @@ import {ProductService} from "./product/product.service";
     RouterModule.forRoot([
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
+      { path: 'categories', component: CategoryComponent},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
       { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
-  providers: [ProductService],
+  providers: [ProductService,
+              CategoryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
