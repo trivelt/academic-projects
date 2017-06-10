@@ -29,6 +29,14 @@ class ProductsDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
       }.toList)
   }
 
+  def one(prodId: Long): Future[Option[ProductsREST]] = {
+    val futureProduct = db.run(Products.filter(_.prodId === prodId).result.headOption)
+    futureProduct.map(
+      _.map {
+        a => ProductsREST(opis = a.opis, tytul = a.tytul, catId = a.catId)
+      })
+  }
+
   def insert(product: Products): Future[Unit] = db.run(Products += product).map { _ => () }
 
 

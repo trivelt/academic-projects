@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                           @controllers.Application.index
+GET     /product                    @controllers.Application.product(id: Int ?=0)
 GET     /categories                 @controllers.Application.categories
 POST    /newproduct                 @controllers.Application.newproduct
 

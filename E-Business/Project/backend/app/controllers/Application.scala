@@ -35,4 +35,11 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
       categories => Ok(Json.toJson(categories))
     }
   }
+
+  def product(id: Int) = Action.async { implicit  request =>
+    productsDAO.one(id) map {
+      products => Ok(Json.toJson(products))
+    }
+  }
+
 }
