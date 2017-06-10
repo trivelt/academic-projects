@@ -7,6 +7,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
+import { ShowProductComponent } from './showProduct/showProduct.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
 import {RouterModule} from "@angular/router";
@@ -19,7 +20,8 @@ import {CategoryService} from "./category/category.service";
     AppComponent,
     ProductComponent,
     PageNotFoundComponent,
-    CategoryComponent
+    CategoryComponent,
+    ShowProductComponent
   ],
   imports: [
     BrowserModule,
@@ -30,6 +32,7 @@ import {CategoryService} from "./category/category.service";
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
       { path: 'categories', component: CategoryComponent},
+      { path:  'showProduct/:id', component: ShowProductComponent},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
       { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: '**', component: PageNotFoundComponent }

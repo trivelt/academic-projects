@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 /**
   * Created by kprzystalski on 23/04/17.
   */
-case class ProductsREST(tytul: String, opis: String, catId: Long)
+case class ProductsREST(tytul: String, opis: String, catId: Long, prodId: Long)
 case class CategoriesREST(tytul: String)
 
 object ProductsREST {
