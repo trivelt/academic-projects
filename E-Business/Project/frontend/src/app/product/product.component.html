@@ -1,6 +1,5 @@
 <li *ngFor="let product of products">
-  <div *ngIf="product.opis == 'promocja'">PROMO!</div>
-  {{ product.tytul}} - {{ product.opis }}
+  <a routerLink="/showProduct/{{product.prodId}}"> {{ product.tytul}}</a>
 </li>
 
 <form [formGroup]="productForm" (ngSubmit)="addProduct($event)">
