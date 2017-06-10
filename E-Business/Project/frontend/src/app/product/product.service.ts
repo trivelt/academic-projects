@@ -15,7 +15,7 @@ export class ProductService {
 
     const options = new RequestOptions({headers: headers});
 
-    return this.http.get('http://localhost:9900/', options)
+    return this.http.get('http://localhost:9000/', options)
       .map(response => <Product[]>response.json());
   }
 
@@ -29,7 +29,7 @@ export class ProductService {
 
     const options = new RequestOptions({headers: headers});
 
-    this.http.post('http://localhost:9900/newproduct', serializedForm, options)
+    this.http.post('http://localhost:9000/newproduct', serializedForm, options)
       .subscribe(
         data => console.log('wyslane!', data),
         error => console.error('nie bangla', error)

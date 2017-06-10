@@ -1,0 +1,52 @@
+#menuBox {
+	margin-left: 6mm;
+	padding-top: 3mm;
+}
+
+div.menu {
+	display: inline;
+	margin-right: 30px;
+}
+
+div.menu a {
+	text-decoration: none;
+	color: #7E1946;
+}
+
+div.menu:hover {
+	font-weight: bold;
+	color: #003843;
+}
+
+
+#title {
+	position: absolute;
+	right: 0;
+	font-size:35px;
+}
+
+#title:hover {
+	font-weight: normal;
+	font-size:35px;
+	color: black;
+}
+
+
+#content {
+	margin: 10mm;
+	height: 65%;
+	border: 5px solid;
+	padding-left: 15px;
+	overflow: scroll;
+	overflow-x:hidden;
+}
+
+#footer {
+	position:absolute;
+	bottom:0;
+	width:100%;
+	height:16px;
+	background:#D3B3CA;
+	text-align: center;
+	font-size: 10px;
+}

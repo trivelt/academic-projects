@@ -1,4 +1,20 @@
-<h1>
-  {{title}}
-</h1>
+<body>
+<div id="menuBox">
+  <div class="menu"><a href="index.html">Główna</a></div>
+  <div class="menu" style="font-weight:normal">|</div>
+  <div class="menu"><a routerLink="/products">Produkty</a></div>
+  <div class="menu" style="font-weight:normal">|</div>
+  <div class="menu"><a href="contact.html">Kontakt</a></div>
+  <div class="menu" style="font-weight:normal">|</div>
+  <div class="menu"><a href="about.html">O nas</a></div>
+  <div class="menu" style="font-weight:normal">|</div>
+  <div class="menu"><a routerLink="/login">Zaloguj</a></div>
+  <div class="menu" id="title">dev shop</div>
+</div>
+
+<div id="content">
 <router-outlet></router-outlet>
+</div>
+
+<div id="footer">Copyleft by Maciej Michalec, E-business 2017</div>
+</body>

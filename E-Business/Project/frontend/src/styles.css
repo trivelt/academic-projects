@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 15pt;
+	color: #7E1946;
+	background-color: #D3C2CE;
+	margin: 0px;
+	padding:0;
+	height:100%;
+}

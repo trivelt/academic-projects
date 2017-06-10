@@ -23,7 +23,8 @@ import {ProductService} from "./product/product.service";
     RouterModule.forRoot([
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
-      { path: 'moreparams/:tytul/:opis', component: ProductComponent}
+      { path: 'moreparams/:tytul/:opis', component: ProductComponent},
+      { path: '', redirectTo: 'products', pathMatch: 'full'}
       ])
   ],
   providers: [ProductService],
