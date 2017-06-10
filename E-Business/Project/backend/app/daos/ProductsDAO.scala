@@ -37,6 +37,14 @@ class ProductsDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvid
       })
   }
 
+  def fromCategory(catId: Long): Future[List[ProductsREST]] = {
+    val futureProduct = db.run(Products.filter(_.catId === catId).result)
+    futureProduct.map(
+      _.map {
+        a => ProductsREST(opis = a.opis, tytul = a.tytul, catId = a.catId, prodId = a.prodId)
+      }.toList)
+  }
+
   def insert(product: Products): Future[Unit] = db.run(Products += product).map { _ => () }
 
 

@@ -21,6 +21,20 @@ export class ProductService {
       .map(response => <Product[]>response.json());
   }
 
+  getProductsFromCategory(id: number) {
+    const headers: Headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+
+    let params: URLSearchParams = new URLSearchParams();
+    params.set('id', id.toString());
+
+    const options = new RequestOptions({headers: headers, search: params});
+
+    return this.http.get('http://localhost:9000/category', options)
+      .map(response => <Product[]>response.json());
+  }
+
   getProduct(id: number) : Observable<Product> {
     const headers: Headers = new Headers();
     headers.append('Accept', 'application/json');

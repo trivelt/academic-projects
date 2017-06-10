@@ -6,7 +6,7 @@ import play.api.libs.json.Json
   * Created by kprzystalski on 23/04/17.
   */
 case class ProductsREST(tytul: String, opis: String, catId: Long, prodId: Long)
-case class CategoriesREST(tytul: String)
+case class CategoriesREST(tytul: String, catId: Long)
 
 object ProductsREST {
   implicit val productsFormat = Json.format[ProductsREST]

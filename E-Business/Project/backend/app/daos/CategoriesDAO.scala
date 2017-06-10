@@ -25,7 +25,7 @@ class CategoriesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProv
     val futureCategories = db.run(results)
     futureCategories.map(
       _.map {
-        a => CategoriesREST(tytul = a.tytul)
+        a => CategoriesREST(tytul = a.tytul, catId = a.catId)
       }.toList)
   }
 

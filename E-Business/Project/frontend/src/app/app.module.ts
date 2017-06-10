@@ -31,6 +31,7 @@ import {CategoryService} from "./category/category.service";
     RouterModule.forRoot([
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
+      { path: 'category/:id', component: ProductComponent},
       { path: 'categories', component: CategoryComponent},
       { path:  'showProduct/:id', component: ShowProductComponent},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},

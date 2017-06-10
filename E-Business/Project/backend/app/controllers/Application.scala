@@ -17,6 +17,7 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 
 class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: CategoriesDAO) extends Controller {
 
+  // list of all products
   def index = Action.async { implicit  request =>
     productsDAO.all map {
       products => Ok(Json.toJson(products))
@@ -30,14 +31,23 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
     Ok(request.body.asJson.get)
   }
 
+  // list of categories
   def categories = Action.async { implicit  request =>
     categoriesDAO.all map {
       categories => Ok(Json.toJson(categories))
     }
   }
 
+  // data connected with one specific product
   def product(id: Int) = Action.async { implicit  request =>
     productsDAO.one(id) map {
+      products => Ok(Json.toJson(products))
+    }
+  }
+
+  // list of all products from a specified category
+  def category(id: Int) = Action.async { implicit  request =>
+    productsDAO.fromCategory(id) map {
       products => Ok(Json.toJson(products))
     }
   }
