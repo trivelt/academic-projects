@@ -6,6 +6,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { ProductComponent } from './product/product.component';
+import { PageNotFoundComponent } from './not-found/not-found.component';
+
 import {RouterModule} from "@angular/router";
 import {ProductService} from "./product/product.service";
 
@@ -13,7 +15,8 @@ import {ProductService} from "./product/product.service";
 @NgModule({
   declarations: [
     AppComponent,
-    ProductComponent
+    ProductComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import {ProductService} from "./product/product.service";
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
-      { path: '', redirectTo: 'products', pathMatch: 'full'}
+      { path: '', redirectTo: 'products', pathMatch: 'full'},
+      { path: '**', component: PageNotFoundComponent }
       ])
   ],
   providers: [ProductService],
