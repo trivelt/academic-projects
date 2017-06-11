@@ -10,6 +10,7 @@ import { BasketComponent } from './basket/basket.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { ShowProductComponent } from './showProduct/showProduct.component';
+import { ShippingFormComponent } from './shippingForm/shippingForm.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
 import {LoginService} from "./login/login.service";
@@ -28,6 +29,7 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
     ProductComponent,
     CategoryComponent,
     ShowProductComponent,
+    ShippingFormComponent,
     PageNotFoundComponent
   ],
   imports: [
@@ -43,6 +45,7 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
       { path:  'showProduct/:id', component: ShowProductComponent},
       { path: 'login', component: LoginComponent},
       { path: 'callback', component: LoginComponent},
+      { path: 'shippingForm', component: ShippingFormComponent},
       { path: 'basket', component: BasketComponent, canActivate: [CanActivateViaOAuthGuard]},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
       { path: '', redirectTo: 'products', pathMatch: 'full'},

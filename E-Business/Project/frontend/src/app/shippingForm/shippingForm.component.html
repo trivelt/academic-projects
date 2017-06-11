@@ -1,0 +1,35 @@
+<h2>Kasa - formularz zamowienia</h2>
+
+<form (ngSubmit)="showSummary()">
+
+  <div class="form-group">
+    <input id="address" type="text" placeholder="Adres do wysylki" size="100" [(ngModel)]="model.address" name="address">
+
+    <br /><br /> <br />
+
+    <select class="form-control" id="shippmentMethod" required [(ngModel)]="model.shippmentMethod" name="shippmentMethod">
+      <option *ngFor="let shpMethod of shippmentMethods">{{shpMethod}}</option>
+    </select>
+
+    <br /> <br />
+
+    <select class="form-control" id="paymentMethod" required [(ngModel)]="model.paymentMethod" name="paymentMethod">
+      <option *ngFor="let pmtMethod of paymentMethods">{{pmtMethod}}</option>
+    </select>
+
+  </div>
+
+
+  <!-- <div class="form-group">
+    <label for="address">Adres</label>
+    <input id="address" type="text" placeholder="Adres do wysylki">
+  </div> -->
+
+  <!-- <select>
+    <ng-container *ngFor="let shippmentMethod of shippmentMethods">
+        <option [ngValue]="p">{{shippmentMethod}}</option>
+    </ng-container>
+  </select> -->
+
+  <button type="submit">Dalej</button>
+</form>
