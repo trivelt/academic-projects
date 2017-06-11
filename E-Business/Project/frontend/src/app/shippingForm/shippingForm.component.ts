@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Order} from "./order";
+import {OrderService} from "./order.service";
 
 @Component({
   selector: 'shipping-form',
@@ -27,7 +28,7 @@ export class ShippingFormComponent implements OnInit {
   model = new Order();
   step = 1
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
 
   ngOnInit() {
       this.model.paymentMethod = this.paymentMethods[0];
@@ -42,6 +43,7 @@ export class ShippingFormComponent implements OnInit {
 
   sendOrder() {
     console.log("Send order clicked");
+    this.orderService.makeOrder();
     this.step = 3;
   }
 

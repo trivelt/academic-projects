@@ -14,6 +14,7 @@ import { ShippingFormComponent } from './shippingForm/shippingForm.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
 import {LoginService} from "./login/login.service";
+import {OrderService} from "./shippingForm/order.service";
 import {BasketService} from "./basket/basket.service";
 import {ProductService} from "./product/product.service";
 import {CategoryService} from "./category/category.service";
@@ -53,6 +54,7 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
       ])
   ],
   providers: [LoginService,
+              OrderService,
               BasketService,
               ProductService,
               CategoryService,
