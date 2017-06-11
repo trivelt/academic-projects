@@ -29,6 +29,10 @@
 <div *ngIf="step==2">
 
   <h2>Podsumowanie zakupow</h2>
+  <li *ngFor="let basket of baskets">
+    <a routerLink="/showProduct/{{basket.prodId}}"> {{ basket.prodId}} </a>
+  </li>
+
   <form (ngSubmit)="sendOrder()">
   <button type="submit">Zamawiam</button>
 </form>

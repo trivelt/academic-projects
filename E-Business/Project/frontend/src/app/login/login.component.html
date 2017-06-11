@@ -2,12 +2,6 @@
 
       <button
         class="btn btn-primary btn-margin"
-        routerLink="/">
-          Home
-      </button>
-
-      <button
-        class="btn btn-primary btn-margin"
         *ngIf="!isAuthenticated()"
         (click)="login()">
           Log In
