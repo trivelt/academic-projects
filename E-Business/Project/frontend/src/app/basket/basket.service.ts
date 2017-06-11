@@ -32,6 +32,30 @@ export class BasketService {
       .map(response => <Basket[]>response.json());
   }
 
+  addToBasket(prodId: number) {
+    console.log("addToBasket prodId=" + prodId);
+    this.profile = this.loginService.userProfile;
+    var userId: string = this.profile.sub;
+    const serializedJson = JSON.stringify({
+      "id": 0,
+      "prodId": Number(prodId),
+      "userId": userId,
+      "comments": " "
+    })
+
+    const headers: Headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+
+    const options = new RequestOptions({headers: headers});
+
+    this.http.post('http://localhost:9000/addtobasket', serializedJson, options)
+      .subscribe(
+        data => console.log('product added to basket', data),
+        error => console.error('adding to basked error', error)
+      );
+  }
+
   removeBasket(id: number) {
     const headers: Headers = new Headers();
     headers.append('Accept', 'application/json');
