@@ -25,6 +25,7 @@ export class ShippingFormComponent implements OnInit {
                     "Bitcoin"]
 
   model = new Order();
+  step = 1
 
   constructor(private route: ActivatedRoute) { }
 
@@ -36,6 +37,12 @@ export class ShippingFormComponent implements OnInit {
 
   showSummary() {
     console.log("showSummary clicked, address=" + this.model.address);
+    this.step = 2;
+  }
+
+  sendOrder() {
+    console.log("Send order clicked");
+    this.step = 3;
   }
 
 
