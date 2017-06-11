@@ -19,4 +19,8 @@ export class BasketComponent implements OnInit {
     console.log(this.route.snapshot.params);
   }
 
+  remove(basket: Basket) {
+    this.basketService.removeBasket(basket.id);
+  }
+
 }

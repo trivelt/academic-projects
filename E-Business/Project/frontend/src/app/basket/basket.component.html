@@ -1,7 +1,7 @@
 <div>
   <h2>Produkty w Twoim koszyku:</h2>
   <li *ngFor="let basket of baskets">
-    <a routerLink="/showProduct/{{basket.prodId}}"> {{ basket.prodId}} </a>
+    <a routerLink="/showProduct/{{basket.prodId}}"> {{ basket.prodId}} </a> (<a (click)="remove(basket)">usun</a>)
   </li>
 
 <br /><br />

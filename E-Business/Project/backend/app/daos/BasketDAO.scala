@@ -20,14 +20,17 @@ class BasketDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
   val Basket = TableQuery[BasketTable]
 
   def forUser(userId: String): Future[List[BasketREST]] = {
-    val futureProduct = db.run(Basket.filter(_.userId === userId).result)
-    futureProduct.map(
+    val futureBasket = db.run(Basket.filter(_.userId === userId).result)
+    futureBasket.map(
       _.map {
-        a => BasketREST(userId = a.userId, prodId = a.prodId, comments = a.comments)
+        a => BasketREST(id = a.id, userId = a.userId, prodId = a.prodId, comments = a.comments)
       }.toList)
   }
 
   def insert(basket: Basket): Future[Unit] = db.run(Basket += basket).map { _ => () }
+
+  def remove(id: Long): Future[Unit] = db.run(Basket.filter(_.id === id).delete).map { _ => () }
+
 
   class BasketTable(tag: Tag) extends Table[Basket](tag, "Basket") {
     def id = column[Long]("id",O.AutoInc, O.AutoInc)

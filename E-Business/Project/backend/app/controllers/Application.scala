@@ -41,6 +41,12 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
     Ok(request.body.asJson.get)
   }
 
+  def removeFromBasket(id: Long) = Action { implicit request =>
+    println("request=" + request)
+    basketDAO.remove(id)
+    Ok("200")
+  }
+
   // list of categories
   def categories = Action.async { implicit  request =>
     categoriesDAO.all map {
@@ -64,6 +70,7 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
 
   // list of all products from a basket of specified user
   def basket(id: String) = Action.async { implicit  request =>
+    println("Basket for id=" + id)
     basketDAO.forUser(id) map {
       products => Ok(Json.toJson(products))
     }

@@ -24,12 +24,25 @@ export class BasketService {
     console.log("UserID=" + userId);
 
     let params: URLSearchParams = new URLSearchParams();
-    params.set('id', userId); //TODO: get current user id (oauth2)
+    params.set('id', userId);
 
     const options = new RequestOptions({headers: headers, search: params});
 
     return this.http.get('http://localhost:9000/basket', options)
       .map(response => <Basket[]>response.json());
+  }
+
+  removeBasket(id: number) {
+    const headers: Headers = new Headers();
+    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
+
+    const options = new RequestOptions({headers: headers});
+    this.http.delete('http://localhost:9000/removebasket/' + id.toString(), options)
+      .subscribe(
+        data => console.log('basket remove sent!', data),
+        error => console.error('basket remove error', error)
+      );
   }
 
 }
