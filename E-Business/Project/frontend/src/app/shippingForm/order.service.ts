@@ -2,28 +2,25 @@ import { Injectable } from '@angular/core';
 import {Http, Headers, RequestOptions} from "@angular/http";
 import {Order} from "./order";
 import 'rxjs/add/operator/map';
-import {LoginService} from '../login/login.service';
-import {BasketService} from '../basket/basket.service';
 
 @Injectable()
 export class OrderService {
 
-  constructor(private loginService: LoginService, private http: Http) {}
+  constructor(private http: Http) {}
 
-  makeOrder() {
+  makeOrder(userId: string, products: string, shippmentMethod: string,
+            paymentMethod: string, address: string, price: number) {
     console.log("makeOrder called");
-    var profile = this.loginService.userProfile;
-    var userId: string = profile.sub;
 
     const serializedOrder = JSON.stringify({
       "id": 0,
       "userId": userId,
-      "products": "cos, cos2",
-      "shippmentMethod": "paczkomat",
-      "paymentMethod": "karta",
+      "products": products,
+      "shippmentMethod": shippmentMethod,
+      "paymentMethod": paymentMethod,
       "date": "15 czerwca",
-      "address": "Krakow",
-      "price": 123
+      "address": address,
+      "price": Number(price)
     })
 
     const headers: Headers = new Headers();

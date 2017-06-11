@@ -3,6 +3,8 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {Order} from "./order";
 import {OrderService} from "./order.service";
+import {BasketService} from '../basket/basket.service';
+import {LoginService} from '../login/login.service';
 
 @Component({
   selector: 'shipping-form',
@@ -28,7 +30,10 @@ export class ShippingFormComponent implements OnInit {
   model = new Order();
   step = 1
 
-  constructor(private orderService: OrderService, private route: ActivatedRoute) { }
+  constructor(private loginService: LoginService,
+              private basketService: BasketService,
+              private orderService: OrderService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
       this.model.paymentMethod = this.paymentMethods[0];
@@ -43,7 +48,17 @@ export class ShippingFormComponent implements OnInit {
 
   sendOrder() {
     console.log("Send order clicked");
-    this.orderService.makeOrder();
+    var profile = this.loginService.userProfile;
+    var userId: string = profile.sub;
+
+    var products = "abcd efg";
+    var price = 153;
+    this.orderService.makeOrder(userId,
+                                products,
+                                this.model.shippmentMethod,
+                                this.model.paymentMethod,
+                                this.model.address,
+                                price);
     this.step = 3;
   }
 
