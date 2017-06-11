@@ -30,7 +30,8 @@ export class ShippingFormComponent implements OnInit {
                     "Bitcoin"]
 
   model = new Order();
-  step = 1
+  step = 1;
+  totalPrice = 0;
 
   constructor(private loginService: LoginService,
               private basketService: BasketService,
@@ -46,7 +47,16 @@ export class ShippingFormComponent implements OnInit {
 
   showSummary() {
     console.log("showSummary clicked, address=" + this.model.address);
+    this.computeTotalPrice();
     this.step = 2;
+  }
+
+  computeTotalPrice() {
+    var price = 0;
+    for(let i =0; i < this.baskets.length; i++) {
+      price += this.baskets[i].price;
+    }
+    this.totalPrice = price;
   }
 
   sendOrder() {
@@ -61,13 +71,12 @@ export class ShippingFormComponent implements OnInit {
     }
 
 
-    var price = 153;
     this.orderService.makeOrder(userId,
                                 products,
                                 this.model.shippmentMethod,
                                 this.model.paymentMethod,
                                 this.model.address,
-                                price);
+                                this.totalPrice);
     this.step = 3;
   }
 

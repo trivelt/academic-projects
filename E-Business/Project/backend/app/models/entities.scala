@@ -10,6 +10,6 @@ import play.api.libs.json.Format
 
 case class Products(prodId: Long, tytul: String, opis: String, catId: Long, price: Long)
 case class Categories(catId: Long, tytul: String)
-case class Basket(id: Long, userId: String, prodId: Long, comments: String)
+case class Basket(id: Long, userId: String, prodId: Long, comments: String, price: Long)
 case class Orders(id: Long, userId: String, products: String, shippmentMethod: String,
                   paymentMethod: String, date: String, address: String, price: Long)

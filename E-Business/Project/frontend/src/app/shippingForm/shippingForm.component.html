@@ -30,8 +30,9 @@
 
   <h2>Podsumowanie zakupow</h2>
   <li *ngFor="let basket of baskets">
-    <a routerLink="/showProduct/{{basket.prodId}}"> {{ basket.prodId}} </a>
+    <a routerLink="/showProduct/{{basket.prodId}}"> Produkt #{{ basket.prodId}} ({{basket.price}} PLN)</a>
   </li>
+  Suma: {{totalPrice}} PLN
 
   <form (ngSubmit)="sendOrder()">
   <button type="submit">Zamawiam</button>

@@ -32,7 +32,7 @@ export class BasketService {
       .map(response => <Basket[]>response.json());
   }
 
-  addToBasket(prodId: number) {
+  addToBasket(prodId: number, price: number) {
     console.log("addToBasket prodId=" + prodId);
     this.profile = this.loginService.userProfile;
     var userId: string = this.profile.sub;
@@ -40,6 +40,7 @@ export class BasketService {
       "id": 0,
       "prodId": Number(prodId),
       "userId": userId,
+      "price": Number(price),
       "comments": " "
     })
 

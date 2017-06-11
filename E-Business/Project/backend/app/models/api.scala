@@ -7,7 +7,7 @@ import play.api.libs.json.Json
   */
 case class ProductsREST(tytul: String, opis: String, catId: Long, prodId: Long, price: Long)
 case class CategoriesREST(tytul: String, catId: Long)
-case class BasketREST(id: Long, userId: String, prodId: Long, comments: String)
+case class BasketREST(id: Long, userId: String, prodId: Long, comments: String, price: Long)
 case class OrdersREST(id: Long, userId: String, products: String, shippmentMethod: String,
                   paymentMethod: String, date: String, address: String, price: Long)
 

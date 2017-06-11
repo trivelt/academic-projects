@@ -25,7 +25,7 @@ export class ShowProductComponent implements OnInit {
   }
 
   addToBasket() {
-    this.basketService.addToBasket(this.prodId);
+    this.basketService.addToBasket(this.prodId, this.product.price);
   }
 
 }

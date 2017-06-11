@@ -23,7 +23,7 @@ class BasketDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     val futureBasket = db.run(Basket.filter(_.userId === userId).result)
     futureBasket.map(
       _.map {
-        a => BasketREST(id = a.id, userId = a.userId, prodId = a.prodId, comments = a.comments)
+        a => BasketREST(id = a.id, userId = a.userId, prodId = a.prodId, comments = a.comments, price = a.price)
       }.toList)
   }
 
@@ -37,7 +37,8 @@ class BasketDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider
     def userId = column[String]("userId")
     def prodId = column[Long]("prodId")
     def comments = column[String]("comments")
-    def * = (id, userId, prodId, comments) <> (models.Basket.tupled, models.Basket.unapply)
+    def price = column[Long]("price")
+    def * = (id, userId, prodId, comments, price) <> (models.Basket.tupled, models.Basket.unapply)
   }
 
 }

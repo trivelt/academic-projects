@@ -40,7 +40,7 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
   // add product to basket
   def addToBasket = Action { implicit request =>
     var json:BasketREST = request.body.asJson.get.as[BasketREST]
-    var basket = Basket(id = 0, userId = json.userId, prodId = json.prodId, comments = json.comments)
+    var basket = Basket(id = 0, userId = json.userId, prodId = json.prodId, comments = json.comments, price = json.price)
     basketDAO.insert(basket)
     Ok(request.body.asJson.get)
   }
