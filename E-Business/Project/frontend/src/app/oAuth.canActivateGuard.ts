@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { CanActivate , Router} from '@angular/router';
+import { LoginService } from './login/login.service';
 
 @Injectable()
 export class CanActivateViaOAuthGuard implements CanActivate {
 
-  constructor(public router : Router) {}
+  constructor(private loginService: LoginService, public router : Router) {}
   canActivate() {
-
-    if(localStorage.getItem("token") === null){
+    var isAuthenticated = this.loginService.isAuthenticated();
+    if(!isAuthenticated) {
       this.router.navigateByUrl('/login');
     }
-    return (localStorage.getItem("token") === null) ? false : true;
+    return isAuthenticated;
   }
 }

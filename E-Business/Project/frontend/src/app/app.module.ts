@@ -39,11 +39,11 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
       { path: '.', component: AppComponent},
       { path: 'products', component: ProductComponent},
       { path: 'category/:id', component: ProductComponent},
-      { path: 'categories', component: CategoryComponent, canActivate: [CanActivateViaOAuthGuard]},
+      { path: 'categories', component: CategoryComponent},
       { path:  'showProduct/:id', component: ShowProductComponent},
       { path: 'login', component: LoginComponent},
       { path: 'callback', component: LoginComponent},
-      { path: 'basket', component: BasketComponent},
+      { path: 'basket', component: BasketComponent, canActivate: [CanActivateViaOAuthGuard]},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
       { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: '**', component: PageNotFoundComponent }
