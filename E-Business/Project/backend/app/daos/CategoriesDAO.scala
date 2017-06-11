@@ -9,7 +9,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 /**
-  * Created by kprzystalski on 23/04/17.
+  * Created by mmichale
   */
 
 class CategoriesDAO @Inject()(protected val dbConfigProvider: DatabaseConfigProvider)

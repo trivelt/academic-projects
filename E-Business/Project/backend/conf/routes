@@ -7,7 +7,10 @@ GET     /                           @controllers.Application.index
 GET     /product                    @controllers.Application.product(id: Int ?=0)
 GET     /categories                 @controllers.Application.categories
 GET     /category                   @controllers.Application.category(id: Int ?=0)
+GET     /basket                     @controllers.Application.basket(id: String ?="")
+
 POST    /newproduct                 @controllers.Application.newproduct
+POST    /addtobasket                @controllers.Application.addToBasket
 
 
 
