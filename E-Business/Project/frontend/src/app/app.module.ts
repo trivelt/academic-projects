@@ -1,19 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import {RouterModule} from "@angular/router";
+import { RouterModule } from "@angular/router";
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
+import { BasketComponent } from './basket/basket.component';
 import { ProductComponent } from './product/product.component';
 import { CategoryComponent } from './category/category.component';
 import { ShowProductComponent } from './showProduct/showProduct.component';
 import { PageNotFoundComponent } from './not-found/not-found.component';
 
+import {LoginService} from "./login/login.service";
+import {BasketService} from "./basket/basket.service";
 import {ProductService} from "./product/product.service";
 import {CategoryService} from "./category/category.service";
-import {LoginService} from "./login/login.service";
 
 import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
 
@@ -21,16 +23,17 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
+    BasketComponent,
     ProductComponent,
-    PageNotFoundComponent,
     CategoryComponent,
     ShowProductComponent,
-    LoginComponent
+    PageNotFoundComponent
   ],
   imports: [
-    BrowserModule,
     HttpModule,
     FormsModule,
+    BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '.', component: AppComponent},
@@ -39,16 +42,17 @@ import { CanActivateViaOAuthGuard } from './oAuth.canActivateGuard';
       { path: 'categories', component: CategoryComponent, canActivate: [CanActivateViaOAuthGuard]},
       { path:  'showProduct/:id', component: ShowProductComponent},
       { path: 'login', component: LoginComponent},
-      { path: '_oauth-callback', component: LoginComponent},
       { path: 'callback', component: LoginComponent},
+      { path: 'basket', component: BasketComponent},
       { path: 'moreparams/:tytul/:opis', component: ProductComponent},
       { path: '', redirectTo: 'products', pathMatch: 'full'},
       { path: '**', component: PageNotFoundComponent }
       ])
   ],
-  providers: [ProductService,
+  providers: [LoginService,
+              BasketService,
+              ProductService,
               CategoryService,
-              LoginService,
               CanActivateViaOAuthGuard],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,9 @@
+<div>
+  <h2>Produkty w Twoim koszyku:</h2>
+  <li *ngFor="let basket of baskets">
+    <a routerLink="/showProduct/{{basket.prodId}}"> {{ basket.prodId}} </a>
+  </li>
+
+<br /><br />
+<a href="#"><strong>Do kasy</strong></a>
+</div>
