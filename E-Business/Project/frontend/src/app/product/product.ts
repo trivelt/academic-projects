@@ -3,4 +3,5 @@ export class Product {
   opis: string;
   prodId: number;
   catId: number;
+  price: number;
 }

@@ -32,7 +32,7 @@ class Application @Inject() (productsDAO: ProductsDAO, categoriesDAO: Categories
 
   def newproduct = Action { implicit request =>
     var json:ProductsREST = request.body.asJson.get.as[ProductsREST]
-    var product = Products(prodId = 0, tytul = json.tytul, opis = json.opis, catId = json.catId)
+    var product = Products(prodId = 0, tytul = json.tytul, opis = json.opis, catId = json.catId, price = json.price)
     productsDAO.insert(product)
     Ok(request.body.asJson.get)
   }
