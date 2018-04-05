@@ -1,0 +1,279 @@
+<resources>
+    <string name="app_name">MyTranslate</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_history">History</string>
+
+    <string name="pref_title_history_enabled">Enable translations history</string>
+    <string name="pref_description_history_enabled">Store history of your translations
+    </string>
+
+    <string name="pref_title_history_size">History size</string>
+    <string-array name="pref_history_size_titles">
+        <item>5 items</item>
+        <item>10 items</item>
+        <item>15 items</item>
+        <item>20 items</item>
+        <item>25 items</item>
+        <item>50 items</item>
+        <item>75 items</item>
+        <item>100 items</item>
+    </string-array>
+    <string-array name="pref_history_size_values">
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>20</item>
+        <item>25</item>
+        <item>50</item>
+        <item>75</item>
+        <item>100</item>
+    </string-array>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_languages">Languages</string>
+    <string name="pref_title_source_language">Default source language</string>
+    <string name="pref_title_target_language">Default target language</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+
+    <string-array name="languages_names">
+        <item>Afrikaans</item>
+        <item>Amharic</item>
+        <item>Arabic</item>
+        <item>Azerbaijani</item>
+        <item>Bashkir</item>
+        <item>Belarusian</item>
+        <item>Bulgarian</item>
+        <item>Bengali</item>
+        <item>Bosnian</item>
+        <item>Catalan</item>
+        <item>Cebuano</item>
+        <item>Czech</item>
+        <item>Welsh</item>
+        <item>Danish</item>
+        <item>German</item>
+        <item>Greek</item>
+        <item>English</item>
+        <item>Esperanto</item>
+        <item>Spanish</item>
+        <item>Estonian</item>
+        <item>Basque</item>
+        <item>Persian</item>
+        <item>Finnish</item>
+        <item>French</item>
+        <item>Irish</item>
+        <item>Scottish Gaelic</item>
+        <item>Galician</item>
+        <item>Gujarati</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Croatian</item>
+        <item>Haitian</item>
+        <item>Hungarian</item>
+        <item>Armenian</item>
+        <item>Indonesian</item>
+        <item>Icelandic</item>
+        <item>Italian</item>
+        <item>Japanese</item>
+        <item>Javanese</item>
+        <item>Georgian</item>
+        <item>Kazakh</item>
+        <item>Kannada</item>
+        <item>Korean</item>
+        <item>Kyrgyz</item>
+        <item>Latin</item>
+        <item>Luxembourgish</item>
+        <item>Lithuanian</item>
+        <item>Latvian</item>
+        <item>Malagasy</item>
+        <item>Mari</item>
+        <item>Maori</item>
+        <item>Macedonian</item>
+        <item>Malayalam</item>
+        <item>Mongolian</item>
+        <item>Marathi</item>
+        <item>Hill Mari</item>
+        <item>Malay</item>
+        <item>Maltese</item>
+        <item>Nepali</item>
+        <item>Dutch</item>
+        <item>Norwegian</item>
+        <item>Punjabi</item>
+        <item>Papiamento</item>
+        <item>Polish</item>
+        <item>Portuguese</item>
+        <item>Romanian</item>
+        <item>Russian</item>
+        <item>Sinhalese</item>
+        <item>Slovak</item>
+        <item>Slovenian</item>
+        <item>Albanian</item>
+        <item>Serbian</item>
+        <item>Sundanese</item>
+        <item>Swedish</item>
+        <item>Swahili</item>
+        <item>Tamil</item>
+        <item>Telugu</item>
+        <item>Tajik</item>
+        <item>Thai</item>
+        <item>Tagalog</item>
+        <item>Turkish</item>
+        <item>Tatar</item>
+        <item>Udmurt</item>
+        <item>Ukrainian</item>
+        <item>Urdu</item>
+        <item>Uzbek</item>
+        <item>Vietnamese</item>
+        <item>Xhosa</item>
+        <item>Yiddish</item>
+        <item>Chinese</item>
+    </string-array>
+
+
+    <string-array name="languages_codes">
+        <item>af</item>
+        <item>am</item>
+        <item>ar</item>
+        <item>az</item>
+        <item>ba</item>
+        <item>be</item>
+        <item>bg</item>
+        <item>bn</item>
+        <item>bs</item>
+        <item>ca</item>
+        <item>ceb</item>
+        <item>cs</item>
+        <item>cy</item>
+        <item>da</item>
+        <item>de</item>
+        <item>el</item>
+        <item>en</item>
+        <item>eo</item>
+        <item>es</item>
+        <item>et</item>
+        <item>eu</item>
+        <item>fa</item>
+        <item>fi</item>
+        <item>fr</item>
+        <item>ga</item>
+        <item>gd</item>
+        <item>gl</item>
+        <item>gu</item>
+        <item>he</item>
+        <item>hi</item>
+        <item>hr</item>
+        <item>ht</item>
+        <item>hu</item>
+        <item>hy</item>
+        <item>id</item>
+        <item>is</item>
+        <item>it</item>
+        <item>ja</item>
+        <item>jv</item>
+        <item>ka</item>
+        <item>kk</item>
+        <item>kn</item>
+        <item>ko</item>
+        <item>ky</item>
+        <item>la</item>
+        <item>lb</item>
+        <item>lt</item>
+        <item>lv</item>
+        <item>mg</item>
+        <item>mhr</item>
+        <item>mi</item>
+        <item>mk</item>
+        <item>ml</item>
+        <item>mn</item>
+        <item>mr</item>
+        <item>mrj</item>
+        <item>ms</item>
+        <item>mt</item>
+        <item>ne</item>
+        <item>nl</item>
+        <item>no</item>
+        <item>pa</item>
+        <item>pap</item>
+        <item>pl</item>
+        <item>pt</item>
+        <item>ro</item>
+        <item>ru</item>
+        <item>si</item>
+        <item>sk</item>
+        <item>sl</item>
+        <item>sq</item>
+        <item>sr</item>
+        <item>su</item>
+        <item>sv</item>
+        <item>sw</item>
+        <item>ta</item>
+        <item>te</item>
+        <item>tg</item>
+        <item>th</item>
+        <item>tl</item>
+        <item>tr</item>
+        <item>tt</item>
+        <item>udm</item>
+        <item>uk</item>
+        <item>ur</item>
+        <item>uz</item>
+        <item>vi</item>
+        <item>xh</item>
+        <item>yi</item>
+        <item>zh</item>
+    </string-array>
+</resources>

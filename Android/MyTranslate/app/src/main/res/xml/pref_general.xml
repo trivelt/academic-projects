@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="history_switch"
+        android:summary="@string/pref_description_history_enabled"
+        android:title="@string/pref_title_history_enabled" />
+
+
+    <ListPreference
+        android:defaultValue="25"
+        android:entries="@array/pref_history_size_titles"
+        android:entryValues="@array/pref_history_size_values"
+        android:key="history_size"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null"
+        android:dependency="history_switch"
+        android:title="@string/pref_title_history_size" />
+
+</PreferenceScreen>
